@@ -1,0 +1,79 @@
+[
+	{
+		"id": "think3d",
+		"title": "Think3D: Thinking with Space for Spatial Reasoning",
+		"authors": "Zaibin Zhang*, Yuhan Wu*, Lianjie Jia*, Yifan Wang, Zhongbo Zhang, Yijiang Li, Binghao Ran, Fuxi Zhang, Zhuohan Sun, Zhenfei Yin, Lijun Wang, Huchuan Lu",
+		"venue": "arXiv",
+		"year": 2026,
+		"theme": "Spatial Intelligence",
+		"abstract": "Interactive 3D chain-of-thought through reconstruction, ego/global-view switching, and camera-based spatial manipulation.",
+		"badge": "200+ GitHub Stars",
+		"links": { "Paper": "https://arxiv.org/abs/2601.13029", "Code": "https://github.com/zhangzaibin/spagent" }
+	},
+	{
+		"id": "ma-vla",
+		"title": "MA-VLA: Multi-Arm Vision-Language-Action Model for Collaboration and Compositional Generalization",
+		"authors": "Zaibin Zhang*, Junlan Xiao*, Zhongbo Zhang*, Yifan Wang, Li Kang, Yiran Qin, Changxing Xia, Heng Zhou, Talas Fu, Enshen Zhou, Ruimao Zhang, Zhenfei Yin, Huchuan Lu, Lijun Wang",
+		"venue": "European Conference on Computer Vision",
+		"year": 2026,
+		"theme": "Embodied Policy",
+		"abstract": "Structured atomic action assignment enables division of labor, role-agnostic execution, and compositional reuse across unseen multi-arm collaboration patterns.",
+		"badge": "ECCV 2026",
+		"links": { "Code": "https://github.com/zhangzaibin/future-robots" }
+	},
+	{
+		"id": "attention-dp3",
+		"title": "Attention-DP3: Spatially Object-aware 3D Diffusion Policy via Geometry-aligned Attentional Conditioning",
+		"authors": "Changbo Yan*, Zhongbo Zhang*, Zaibin Zhang*, Yifan Wang, Lijun Wang, Huchuan Lu",
+		"venue": "European Conference on Computer Vision",
+		"year": 2026,
+		"theme": "Embodied Policy",
+		"abstract": "Geometry-aligned object cues help 3D diffusion policies attend to target geometry and remain robust as scene clutter increases.",
+		"badge": "ECCV 2026",
+		"links": {}
+	},
+	{
+		"id": "comas",
+		"title": "CoMAS: Co-Evolving Multi-Agent Systems via Interaction Rewards",
+		"authors": "Xiangyuan Xue, Yifan Zhou, Guibin Zhang, Zaibin Zhang, Yijiang Li, Chen Zhang, Zhenfei Yin, Philip Torr, Wanli Ouyang, Lei Bai",
+		"venue": "International Conference on Learning Representations",
+		"year": 2026,
+		"theme": "Self-Evolution",
+		"abstract": "Agents co-evolve without external supervision by evaluating each other and learning from interaction rewards.",
+		"badge": "ICLR 2026",
+		"links": { "Paper": "https://arxiv.org/abs/2510.08529", "Code": "https://github.com/xxyQwQ/CoMAS" }
+	},
+	{
+		"id": "agentic-rl",
+		"title": "The Landscape of Agentic Reinforcement Learning for LLMs: A Survey",
+		"authors": "Guibin Zhang, Hejia Geng, Xiaohang Yu, Zhenfei Yin, Zaibin Zhang, et al.",
+		"venue": "Transactions on Machine Learning Research",
+		"year": 2026,
+		"theme": "Digital Agents",
+		"abstract": "A synthesis of more than 500 works that formalizes agentic RL as temporally extended decision-making in dynamic environments.",
+		"badge": "TMLR 2026",
+		"links": { "Paper": "https://openreview.net/forum?id=RY19y2RI1O", "arXiv": "https://arxiv.org/abs/2509.02547", "Code": "https://github.com/xhyumiracle/Awesome-AgenticLLM-RL-Papers" }
+	},
+	{
+		"id": "oasis",
+		"title": "OASIS: Open Agent Social Interaction Simulations with One Million Agents",
+		"authors": "Ziyi Yang*, Zaibin Zhang*, Zirui Zheng, Yuxian Jiang, Ziyue Gan, Zhiyu Wang, et al.",
+		"venue": "NeurIPS Workshop on Open-World Agents",
+		"year": 2024,
+		"theme": "Agent Societies",
+		"abstract": "A generalizable social media simulator for studying information spreading, group polarization, and herd effects at million-agent scale.",
+		"badge": "5,000+ GitHub Stars",
+		"links": { "Paper": "https://arxiv.org/abs/2411.11581", "Code": "https://github.com/camel-ai/oasis" }
+	},
+	{
+		"id": "psysafe",
+		"title": "PsySafe: Psychological-based Attack, Defense, and Evaluation of Multi-agent System Safety",
+		"authors": "Zaibin Zhang*, Yongting Zhang*, Lijun Li, Hongzhi Gao, Lijun Wang, Huchuan Lu, Feng Zhao, Yu Qiao, Jing Shao",
+		"venue": "Annual Meeting of the Association for Computational Linguistics",
+		"year": 2024,
+		"theme": "Agent Societies",
+		"abstract": "A systematic framework for identifying, evaluating, and mitigating multi-agent safety risks through the lens of agent psychology.",
+		"badge": "Outstanding Paper Award",
+		"links": { "Paper": "https://arxiv.org/abs/2401.11880", "Code": "https://github.com/AI4Good24/PsySafe" }
+	}
+]

@@ -1,0 +1,113 @@
+---
+interface Props {
+	project: {
+		name: string;
+		kicker: string;
+		tagline: string;
+		description: string;
+		metrics: string[];
+		links: Record<string, string>;
+		image?: string;
+	};
+	index: number;
+	large?: boolean;
+}
+const { project, index, large = false } = Astro.props;
+const variant = (index - 1) % 3;
+---
+
+<article class:list={['feature', { large }]}>
+	<div class="visual" data-variant={variant}>
+		<div class="visual-label">{String(index).padStart(2, '0')} / {project.kicker}</div>
+		<svg class="diagram" viewBox="0 0 700 480" aria-hidden="true">
+			<defs>
+				<pattern id={`grid-${index}`} width="40" height="40" patternUnits="userSpaceOnUse">
+					<path d="M40 0H0V40" fill="none" stroke="currentColor" stroke-width=".6" opacity=".16" />
+				</pattern>
+			</defs>
+			<rect width="700" height="480" fill={`url(#grid-${index})`} />
+			{variant === 0 && (
+				<g class="network">
+					<circle class="orbit" cx="350" cy="242" r="145" />
+					<circle class="orbit faint" cx="350" cy="242" r="90" />
+					<path d="M350 242L235 154M350 242l148-65M350 242l112 132M350 242l-158 88M235 154l263 23M192 330l270 44" />
+					<circle class="signal core" cx="350" cy="242" r="24" />
+					<circle class="node" cx="235" cy="154" r="10" />
+					<circle class="node" cx="498" cy="177" r="15" />
+					<circle class="node" cx="462" cy="374" r="9" />
+					<circle class="node" cx="192" cy="330" r="13" />
+					<circle class="node signal" cx="350" cy="97" r="7" />
+				</g>
+			)}
+			{variant === 1 && (
+				<g class="modules">
+					<path d="M105 240h105m120 0h90m120 0h55M270 150v-48m0 276v-48M480 150v-48m0 276v-48" />
+					<rect x="210" y="150" width="120" height="180" rx="60" />
+					<rect x="420" y="150" width="120" height="180" rx="60" />
+					<circle class="signal" cx="270" cy="240" r="24" />
+					<circle class="node" cx="480" cy="240" r="24" />
+					<circle class="node" cx="105" cy="240" r="10" />
+					<circle class="signal" cx="595" cy="240" r="10" />
+					<circle class="node" cx="270" cy="102" r="7" />
+					<circle class="node" cx="270" cy="378" r="7" />
+					<circle class="node" cx="480" cy="102" r="7" />
+					<circle class="node" cx="480" cy="378" r="7" />
+				</g>
+			)}
+			{variant === 2 && (
+				<g class="motion">
+					<path class="sweep" d="M102 356C196 97 439 62 604 207" />
+					<path class="sweep faint" d="M102 356c168 34 344-13 502-149" />
+					<path d="M102 356l104-34 88-96 115 20 88-101 107 62" />
+					<circle class="signal" cx="102" cy="356" r="14" />
+					<circle class="node" cx="206" cy="322" r="8" />
+					<circle class="node" cx="294" cy="226" r="12" />
+					<circle class="signal" cx="409" cy="246" r="18" />
+					<circle class="node" cx="497" cy="145" r="9" />
+					<circle class="node" cx="604" cy="207" r="14" />
+				</g>
+			)}
+		</svg>
+		<span class="diagram-code">EML / SYSTEM {String(index).padStart(2, '0')}</span>
+	</div>
+	<div class="body">
+		<p class="eyebrow">{project.kicker}</p>
+		<h3>{project.name}</h3>
+		<p class="tagline">{project.tagline}</p>
+		<p class="description">{project.description}</p>
+		<ul>{project.metrics.map((item) => <li>{item}</li>)}</ul>
+		<div class="links">
+			{Object.entries(project.links).map(([label, url]) => <a href={url} target="_blank">{label} <span class="arrow">↗</span></a>)}
+		</div>
+	</div>
+</article>
+
+<style>
+	.feature { display: grid; grid-template-columns: 1.3fr 1fr; min-height: 35rem; border: 1px solid var(--line); background: var(--paper); }
+	.feature + .feature { margin-top: 2rem; }
+	.visual { position: relative; min-height: 30rem; overflow: hidden; background: var(--paper-soft); border-right: 1px solid var(--line); }
+	.visual::after { content: ""; position: absolute; width: 18rem; height: 18rem; right: -8rem; bottom: -8rem; border-radius: 50%; background: color-mix(in srgb, var(--acid) 72%, transparent); filter: blur(1px); }
+	.diagram { position: absolute; inset: 8% 4% 4%; width: 92%; height: 88%; color: var(--ink); transition: transform .7s cubic-bezier(.2,.7,.2,1); }
+	.diagram g > path, .diagram .orbit, .diagram g > rect { fill: none; stroke: currentColor; stroke-width: 1.3; vector-effect: non-scaling-stroke; }
+	.diagram .orbit { stroke-dasharray: 4 8; }
+	.diagram .faint { opacity: .28; }
+	.diagram .node { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; }
+	.diagram .signal { fill: var(--acid); stroke: var(--ink); stroke-width: 1.5; }
+	.diagram .core { transform-origin: 350px 242px; transition: transform .5s ease; }
+	.diagram .sweep { stroke-dasharray: 3 8; }
+	.feature:hover .diagram { transform: scale(1.025); }
+	.feature:hover .diagram .core { transform: scale(1.3); }
+	.diagram-code { position: absolute; left: 1.2rem; bottom: 1rem; font: .58rem var(--mono); letter-spacing: .08em; color: var(--muted); }
+	.visual-label { position: absolute; z-index: 2; left: 1rem; top: 1rem; padding: .45rem .65rem; background: var(--paper); border: 1px solid var(--ink); font: .62rem var(--mono); text-transform: uppercase; }
+	.body { padding: clamp(2rem, 5vw, 5rem); display: flex; flex-direction: column; justify-content: center; }
+	h3 { margin: 0; font-size: clamp(3rem, 6vw, 6rem); line-height: .85; letter-spacing: -.07em; font-weight: 450; }
+	.tagline { margin: 2rem 0 1rem; font-size: 1.35rem; line-height: 1.2; letter-spacing: -.025em; }
+	.description { color: var(--muted); max-width: 38rem; }
+	ul { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; padding: 0; margin: 2rem 0; }
+	li { padding: .35rem .55rem; border: 1px solid var(--line); border-radius: 2rem; font: .62rem var(--mono); text-transform: uppercase; }
+	.links { display: flex; gap: 1.5rem; font: .68rem var(--mono); text-transform: uppercase; }
+	@media (max-width: 800px) {
+		.feature { grid-template-columns: 1fr; }
+		.visual { min-height: 20rem; border-right: 0; border-bottom: 1px solid var(--line); }
+	}
+</style>

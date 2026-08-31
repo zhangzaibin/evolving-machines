@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectFeature from '../components/ProjectFeature.astro';
+
+const projects = (await getCollection('projects')).sort((a, b) => b.data.year - a.data.year);
+---
+
+<BaseLayout title="Projects" description="Open systems for agent societies, self-evolution, spatial intelligence, and embodied policy.">
+	<header class="page-hero shell">
+		<p class="eyebrow">Open systems</p>
+		<h1 class="display">Ideas must<br /><em>leave the lab.</em></h1>
+		<p class="lede">We turn research questions into open frameworks, environments, models, and datasets that other people can inspect, extend, and build upon.</p>
+	</header>
+
+	<section class="section">
+		<div class="shell">
+			<p class="eyebrow">Current work / {projects.length}</p>
+			<div class="projects-list">
+				{projects.map((project, index) => (
+					<div id={project.id}><ProjectFeature project={project.data} index={index + 1} /></div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="section open-call">
+		<div class="shell grid-2">
+			<h2>Open by<br />default.</h2>
+			<div>
+				<p>We believe important agent infrastructure should be inspectable, extensible, and useful beyond a single paper. Our projects connect research artifacts to real communities of researchers and builders.</p>
+				<a href="https://github.com/zhangzaibin">Explore our GitHub <span class="arrow">↗</span></a>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.page-hero em { font-family: var(--serif); font-weight: 400; }
+	.projects-list > div { scroll-margin-top: 110px; }
+	.projects-list > div + div { margin-top: 2rem; }
+	.open-call { background: var(--acid); }
+	.open-call .grid-2 { gap: clamp(3rem, 10vw, 12rem); }
+	.open-call h2 { margin: 0; font-size: clamp(4rem, 9vw, 9rem); line-height: .82; letter-spacing: -.07em; font-weight: 450; }
+	.open-call p { max-width: 39rem; font-size: 1.3rem; letter-spacing: -.02em; }
+	.open-call a { display: inline-block; margin-top: 2rem; padding-bottom: .4rem; border-bottom: 1px solid; font: .68rem var(--mono); text-transform: uppercase; }
+</style>

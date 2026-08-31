@@ -1,0 +1,161 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroGrowthField from '../components/HeroGrowthField.astro';
+import ResearchTrajectory from '../components/ResearchTrajectory.astro';
+import ProjectFeature from '../components/ProjectFeature.astro';
+import PublicationList from '../components/PublicationList.astro';
+import ImpactStrip from '../components/ImpactStrip.astro';
+
+const allProjects = await getCollection('projects');
+const base = import.meta.env.BASE_URL;
+const allPubs = (await getCollection('publications')).sort((a, b) => b.data.year - a.data.year);
+const news = (await getCollection('news')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+const flagshipIds = ['oasis', 'spagent', 'ma-vla'];
+const flagships = flagshipIds.map((id) => allProjects.find((project) => project.id === id)!).filter(Boolean);
+const pillars = [
+	['Digital Agents', 'Agents that reason, use tools, remember, and improve over extended interaction.'],
+	['Agent Societies', 'Open environments for understanding collective behavior, safety, and social emergence at scale.'],
+	['Self-Evolution', 'Interaction as curriculum: agents learn from one another and generate their own improvement signals.'],
+	['Spatial Intelligence', 'Systems that actively reconstruct, explore, and reason inside three-dimensional worlds.'],
+	['Embodied Policy', 'Composable policies that coordinate bodies, skills, and multiple effectors in the physical world.'],
+];
+---
+
+<BaseLayout>
+	<section class="hero shell">
+		<div class="hero-copy">
+			<p class="eyebrow">Independent research collective</p>
+			<h1 class="display">Evolving<br /><em>Machines</em><br />Lab</h1>
+			<p class="hero-line">Building intelligence that grows through interaction</p>
+			<p class="intro">We build agents and embodied policies that learn, adapt, and evolve—from digital worlds and agent societies to spatial reasoning and physical intelligence.</p>
+			<div class="hero-actions">
+				<a href={`${base}research`}>Explore research <span class="arrow">↗</span></a>
+				<a href={`${base}projects`}>View systems <span class="arrow">→</span></a>
+			</div>
+		</div>
+		<HeroGrowthField />
+	</section>
+
+	<section class="manifesto section">
+		<div class="shell">
+			<p class="eyebrow">Our premise</p>
+			<p>Intelligence does not emerge in isolation. It grows by <em>acting</em>, <em>interacting</em>, and <em>adapting</em>.</p>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="shell">
+			<div class="section-head">
+				<div><p class="eyebrow">Research continuum</p><h2 class="display">From signals<br />to societies<br />to the world.</h2></div>
+				<p class="lede">One coherent path toward intelligence that remains reliable, open, and capable of evolving as its environment grows more complex.</p>
+			</div>
+			<ResearchTrajectory />
+		</div>
+	</section>
+
+	<section class="section pillars">
+		<div class="shell">
+			<p class="eyebrow">Research pillars</p>
+			<div class="grid-3 card-grid">
+				{pillars.map(([name, text], index) => (
+					<article class="card">
+						<span class="index">0{index + 1}</span>
+						<h3>{name}</h3><p>{text}</p>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="section projects">
+		<div class="shell">
+			<div class="section-head compact">
+				<div><p class="eyebrow">Flagship systems</p><h2 class="display">Ideas that<br />became infrastructure.</h2></div>
+				<a class="all-link" href={`${base}projects`}>All projects <span class="arrow">↗</span></a>
+			</div>
+			{flagships.map((project, index) => <ProjectFeature project={project.data} index={index + 1} />)}
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="shell">
+			<p class="eyebrow">Open impact</p>
+			<ImpactStrip />
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="shell">
+			<div class="section-head compact">
+				<div><p class="eyebrow">Selected publications</p><h2 class="display">Research,<br />made public.</h2></div>
+				<a class="all-link" href={`${base}publications`}>Full index <span class="arrow">↗</span></a>
+			</div>
+			<PublicationList publications={allPubs} limit={4} />
+		</div>
+	</section>
+
+	<section class="section institutions">
+		<div class="shell">
+			<p class="eyebrow">Institutions</p>
+			<p class="institution-intro">Research shaped across<br /><em>four global communities.</em></p>
+			<div class="institution-grid">
+				<a href="https://www.dlut.edu.cn/" target="_blank"><span>01 / Dalian, CN</span><strong>Dalian University<br />of Technology</strong><span class="arrow">↗</span></a>
+				<a href="https://www.ox.ac.uk/" target="_blank"><span>02 / Oxford, UK</span><strong>University<br />of Oxford</strong><span class="arrow">↗</span></a>
+				<a href="https://www.kaust.edu.sa/" target="_blank"><span>03 / Thuwal, SA</span><strong>KAUST</strong><span class="arrow">↗</span></a>
+				<a href="https://ucsd.edu/" target="_blank"><span>04 / California, US</span><strong>UC San<br />Diego</strong><span class="arrow">↗</span></a>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="shell">
+			<div class="section-head compact">
+				<div><p class="eyebrow">Latest</p><h2 class="display">Notes from<br />the lab.</h2></div>
+				<a class="all-link" href={`${base}news`}>All news <span class="arrow">↗</span></a>
+			</div>
+			<div class="grid-3 card-grid">
+				{news.map((item) => (
+					<a class="card news-card" href={item.data.link ?? `${base}news`}>
+						<span class="index">{item.data.date.toLocaleDateString('en', { month: 'short', year: 'numeric' })}</span>
+						<h3>{item.data.title}</h3><p>{item.data.description}</p>
+						<span class="link-row">Read <span class="arrow">↗</span></span>
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.hero { min-height: calc(100svh - 84px); display: grid; grid-template-columns: 1.08fr .92fr; padding-right: 0; }
+	.hero-copy { padding: clamp(4rem, 7vw, 7rem) clamp(2rem, 5vw, 5rem) 4rem 0; display: flex; flex-direction: column; justify-content: center; }
+	.hero h1 { font-size: clamp(4.2rem, 9.3vw, 9.2rem); }
+	.hero h1 em { font-family: var(--serif); font-weight: 400; }
+	.hero-line { max-width: 34rem; margin: 2.5rem 0 0; font-size: clamp(1.25rem, 2.1vw, 2rem); line-height: 1.1; letter-spacing: -.035em; }
+	.intro { max-width: 36rem; margin: 1.2rem 0 0; color: var(--muted); }
+	.hero-actions { display: flex; gap: 2rem; margin-top: 2.5rem; font: .68rem var(--mono); text-transform: uppercase; }
+	.hero-actions a:first-child { padding-bottom: .35rem; border-bottom: 1px solid var(--ink); }
+	.manifesto p:last-child { max-width: 1200px; margin: 0; font-size: clamp(3rem, 7.5vw, 8rem); line-height: .95; letter-spacing: -.065em; }
+	.manifesto em { font-family: var(--serif); font-weight: 400; text-decoration: underline; text-decoration-color: var(--acid); text-decoration-thickness: .12em; text-underline-offset: .08em; }
+	.section-head { display: grid; grid-template-columns: 1.25fr .75fr; gap: 4rem; align-items: end; margin-bottom: clamp(4rem, 8vw, 8rem); }
+	.section-head h2 { font-size: clamp(3.5rem, 8vw, 8rem); }
+	.section-head.compact { grid-template-columns: 1fr auto; }
+	.all-link { align-self: end; padding-bottom: .35rem; border-bottom: 1px solid var(--ink); font: .68rem var(--mono); text-transform: uppercase; }
+	.pillars .card:nth-child(4), .pillars .card:nth-child(5) { min-height: 22rem; }
+	.institution-intro { margin: 0 0 clamp(3rem, 7vw, 7rem); font-size: clamp(3rem, 7vw, 7rem); line-height: .92; letter-spacing: -.06em; }
+	.institution-intro em { font-family: var(--serif); font-weight: 400; }
+	.institution-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+	.institution-grid a { min-height: 18rem; padding: 1.5rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; flex-direction: column; justify-content: space-between; transition: background .25s ease; }
+	.institution-grid a:hover { background: var(--acid); }
+	.institution-grid span { font: .62rem var(--mono); text-transform: uppercase; color: var(--muted); }
+	.institution-grid .arrow { align-self: flex-end; color: var(--ink); }
+	.institution-grid strong { font-size: clamp(1.3rem, 2vw, 2.2rem); line-height: 1; letter-spacing: -.045em; font-weight: 450; }
+	@media (max-width: 800px) {
+		.hero { grid-template-columns: 1fr; padding-right: var(--pad); }
+		.hero-copy { padding-right: 0; }
+		.section-head, .section-head.compact { grid-template-columns: 1fr; gap: 2rem; }
+		.all-link { justify-self: start; }
+		.institution-grid { grid-template-columns: repeat(2, 1fr); }
+	}
+</style>

@@ -1,0 +1,62 @@
+[
+	{
+		"id": "oasis",
+		"name": "OASIS",
+		"kicker": "Agent Societies",
+		"tagline": "Open social simulations with one million agents.",
+		"description": "A scalable, open framework for studying how information, norms, polarization, and collective behavior emerge in large populations of language-model agents.",
+		"theme": "Agent Societies",
+		"year": 2024,
+		"metrics": ["1M agents", "5,000+ stars", "200+ citations"],
+		"links": { "Paper": "https://arxiv.org/abs/2411.11581", "Code": "https://github.com/camel-ai/oasis" },
+		"image": "/projects/oasis.webp"
+	},
+	{
+		"id": "spagent",
+		"name": "SPAgent",
+		"kicker": "Physical & Spatial Agent",
+		"tagline": "A foundation agent for the physical and spatial world.",
+		"description": "A general-purpose multimodal tool-calling framework that connects vision-language models to an open-ended ecosystem of perception, grounding, 3D, and generation tools.",
+		"theme": "Digital Agents",
+		"year": 2026,
+		"metrics": ["26 tools", "Multimodal memory", "Agentic RL"],
+		"links": { "Website": "https://zhangzaibin.github.io/spagent/", "Code": "https://github.com/zhangzaibin/spagent" },
+		"image": "/projects/think3d.webp"
+	},
+	{
+		"id": "comas",
+		"name": "CoMAS",
+		"kicker": "Self-Evolution",
+		"tagline": "Agents that co-evolve through interaction rewards.",
+		"description": "Agents interact, evaluate one another, and optimize from self-produced reward signals—turning social interaction into an open-ended curriculum.",
+		"theme": "Self-Evolution",
+		"year": 2026,
+		"metrics": ["ICLR 2026", "No external supervision"],
+		"links": { "Paper": "https://arxiv.org/abs/2510.08529", "Code": "https://github.com/xxyQwQ/CoMAS" },
+		"image": "/projects/comas.webp"
+	},
+	{
+		"id": "think3d",
+		"name": "Think3D",
+		"kicker": "Spatial Intelligence",
+		"tagline": "Thinking with space, not only about it.",
+		"description": "Interactive 3D chain-of-thought combines reconstruction, view switching, and camera manipulation so agents can actively explore spatial problems.",
+		"theme": "Spatial Intelligence",
+		"year": 2026,
+		"metrics": ["Interactive 3D CoT", "200+ stars"],
+		"links": { "Paper": "https://arxiv.org/abs/2601.13029", "Code": "https://github.com/zhangzaibin/spagent" },
+		"image": "/projects/think3d.webp"
+	},
+	{
+		"id": "ma-vla",
+		"name": "MA-VLA",
+		"kicker": "Embodied Policy",
+		"tagline": "Compositional intelligence for multi-arm collaboration.",
+		"description": "A vision-language-action model that decomposes cooperative behavior into atomic prompts, assigns roles, and recomposes skills for unseen collaboration patterns.",
+		"theme": "Embodied Policy",
+		"year": 2026,
+		"metrics": ["ECCV 2026", "Multi-arm", "Compositional generalization"],
+		"links": { "Code": "https://github.com/zhangzaibin/future-robots" },
+		"image": "/projects/mavla.webp"
+	}
+]

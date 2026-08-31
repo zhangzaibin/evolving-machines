@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+const news = (await getCollection('news')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="News" description="Releases, publications, talks, and updates from Evolving Machines Lab.">
+	<header class="page-hero shell">
+		<p class="eyebrow">News / Field notes</p>
+		<h1 class="display">Signals from<br />an evolving <em>lab.</em></h1>
+		<p class="lede">New systems, research milestones, conversations, and moments that move the work forward.</p>
+	</header>
+
+	<section class="section">
+		<div class="shell">
+			<div class="list">
+				{news.map((item) => (
+					<article class="list-row">
+						<time class="meta" datetime={item.data.date.toISOString()}>
+							{item.data.date.toLocaleDateString('en', { day: '2-digit', month: 'short', year: 'numeric' })}
+						</time>
+						<div><h2>{item.data.title}</h2><p>{item.data.description}</p></div>
+						<div class="meta">{item.data.link ? <a href={item.data.link}>Read more <span class="arrow">↗</span></a> : 'Lab note'}</div>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.page-hero em { font-family: var(--serif); font-weight: 400; }
+</style>

@@ -1,0 +1,36 @@
+---
+const steps = [
+	['01', 'PsySafe', 'Reliable groups', 'Safety'],
+	['02', 'OASIS', 'Agent societies', 'Scale'],
+	['03', 'CoMAS', 'Co-evolution', 'Interaction'],
+	['04', 'SPAgent', 'Physical agents', 'Tools'],
+	['05', 'Think3D', 'Spatial thought', 'World models'],
+	['06', 'MA-VLA', 'Embodied policy', 'Action'],
+];
+---
+
+<div class="trajectory">
+	<div class="track" aria-hidden="true"><span></span></div>
+	{steps.map(([n, name, idea, phase]) => (
+		<article>
+			<div class="node"></div>
+			<span class="number">{n}</span>
+			<p class="phase">{phase}</p>
+			<h3>{name}</h3>
+			<p>{idea}</p>
+		</article>
+	))}
+</div>
+
+<style>
+	.trajectory { position: relative; display: grid; grid-template-columns: repeat(6, minmax(11rem, 1fr)); overflow-x: auto; scrollbar-width: thin; padding: 2rem 0 1rem; }
+	.track { position: absolute; left: 0; right: 0; top: 3.37rem; height: 1px; background: var(--line); }
+	.track span { display: block; height: 100%; width: 0; background: var(--ink); animation: grow linear both; animation-timeline: view(); animation-range: entry 10% cover 60%; }
+	article { min-height: 15rem; padding-right: 2rem; }
+	.node { position: relative; z-index: 1; width: .75rem; height: .75rem; margin: 1rem 0 2.2rem; border: 1px solid var(--ink); border-radius: 50%; background: var(--acid); }
+	.number, .phase { font: .62rem var(--mono); text-transform: uppercase; color: var(--muted); }
+	.phase { margin-top: 1.5rem; }
+	h3 { margin: .5rem 0 .3rem; font-size: 1.5rem; letter-spacing: -.04em; font-weight: 500; }
+	article > p:last-child { margin: 0; color: var(--muted); }
+	@keyframes grow { to { width: 100%; } }
+</style>

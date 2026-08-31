@@ -1,0 +1,48 @@
+[
+	{
+		"id": "eccv-2026",
+		"date": "2026-07-01",
+		"title": "MA-VLA and Attention-DP3 accepted to ECCV 2026",
+		"description": "Two steps toward compositional multi-arm systems and spatially object-aware manipulation policies.",
+		"link": "https://github.com/zhangzaibin/future-robots"
+	},
+	{
+		"id": "ucla-oasis",
+		"date": "2026-03-01",
+		"title": "Invited lecture on OASIS at UCLA",
+		"description": "A lecture on open, large-scale agent society simulation and the research it enables."
+	},
+	{
+		"id": "comas-iclr",
+		"date": "2026-01-26",
+		"title": "CoMAS accepted to ICLR 2026",
+		"description": "Interaction rewards enable language-model agents to continuously co-evolve without external supervision.",
+		"link": "https://arxiv.org/abs/2510.08529"
+	},
+	{
+		"id": "oxford",
+		"date": "2025-05-01",
+		"title": "Visiting the Oxford Torr Vision Group",
+		"description": "Zaibin joins the University of Oxford as a visiting Ph.D. student."
+	},
+	{
+		"id": "oasis-release",
+		"date": "2024-11-18",
+		"title": "OASIS released",
+		"description": "An open social simulation platform supporting interactions among more than one million language-model agents.",
+		"link": "https://github.com/camel-ai/oasis"
+	},
+	{
+		"id": "acl-award",
+		"date": "2024-08-15",
+		"title": "PsySafe receives an ACL Outstanding Paper Award",
+		"description": "Recognition for a systematic psychological perspective on multi-agent attack, evaluation, and defense.",
+		"link": "https://arxiv.org/abs/2401.11880"
+	},
+	{
+		"id": "cctv",
+		"date": "2024-06-01",
+		"title": "Research featured by CCTV",
+		"description": "A conversation on emerging agent systems and their broader impact."
+	}
+]

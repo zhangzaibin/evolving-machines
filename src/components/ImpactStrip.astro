@@ -1,0 +1,26 @@
+---
+const stats = [
+	['1M', 'Agents simulated'],
+	['5K+', 'OASIS stars'],
+	['200+', 'OASIS citations'],
+	['26', 'SPAgent tools'],
+	['01', 'ACL outstanding paper'],
+];
+---
+
+<div class="impact">
+	{stats.map(([value, label]) => (
+		<div>
+			<strong>{value}</strong>
+			<span>{label}</span>
+		</div>
+	))}
+</div>
+
+<style>
+	.impact { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+	.impact > div { min-height: 12rem; padding: 1.5rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; flex-direction: column; justify-content: space-between; }
+	strong { font-size: clamp(2.7rem, 5vw, 5.5rem); letter-spacing: -.065em; line-height: .8; font-weight: 450; }
+	span { max-width: 9rem; font: .65rem/1.3 var(--mono); text-transform: uppercase; color: var(--muted); }
+	@media (max-width: 800px) { .impact { grid-template-columns: repeat(2, 1fr); } }
+</style>

@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+
+const areas = [
+	{
+		n: '01', name: 'Digital Agents', question: 'How can agents remain capable and reliable across long horizons?',
+		approach: 'We build open agent systems that combine multimodal perception, tool use, stateful memory, and reinforcement learning. The agent is not a chatbot—it is a persistent decision-maker situated inside a changing environment.',
+		systems: ['SPAgent', 'Agentic RL Landscape'], lens: 'Reason · Use tools · Remember · Improve'
+	},
+	{
+		n: '02', name: 'Agent Societies', question: 'What happens when intelligence becomes a population?',
+		approach: 'We construct large-scale environments where agents communicate, form beliefs, spread information, and develop collective behavior. These worlds let us study emergence and safety before agent societies become infrastructure.',
+		systems: ['OASIS', 'PsySafe'], lens: 'Simulate · Observe · Evaluate · Protect'
+	},
+	{
+		n: '03', name: 'Self-Evolution', question: 'Can interaction become its own curriculum?',
+		approach: 'We study agents that generate learning signals through social feedback and environmental consequence. Instead of relying on a fixed external teacher, populations can evaluate, challenge, and improve one another.',
+		systems: ['CoMAS', 'OASIS'], lens: 'Interact · Evaluate · Reward · Co-evolve'
+	},
+	{
+		n: '04', name: 'Spatial Intelligence', question: 'How can machines think inside space, rather than only describe it?',
+		approach: 'Our agents reconstruct scenes, change viewpoints, manipulate cameras, and call expert 3D tools. Active exploration turns spatial reasoning from passive image recognition into a process grounded in geometry.',
+		systems: ['Think3D', 'SPAgent'], lens: 'Reconstruct · Explore · Ground · Reason'
+	},
+	{
+		n: '05', name: 'Embodied Policy', question: 'How can skills compose across bodies, tasks, and unseen worlds?',
+		approach: 'We develop vision-language-action and diffusion policies for complex physical collaboration. Atomic action assignment and geometry-aware conditioning create reusable skills rather than brittle end-to-end behaviors.',
+		systems: ['MA-VLA', 'Attention-DP3', 'Future'], lens: 'Decompose · Coordinate · Compose · Act'
+	},
+];
+---
+
+<BaseLayout title="Research" description="Our research spans digital agents, agent societies, self-evolution, spatial intelligence, and embodied policy.">
+	<header class="page-hero shell">
+		<p class="eyebrow">Research</p>
+		<h1 class="display">Intelligence is<br />a <em>process.</em></h1>
+		<p class="lede">We study the feedback loops that make machines more capable—from language-model agents interacting online to policies acting through multiple bodies in the physical world.</p>
+	</header>
+
+	<div class="areas">
+		{areas.map((area) => (
+			<section class="area section">
+				<div class="shell area-grid">
+					<div class="area-index"><span>{area.n}</span><span>{area.lens}</span></div>
+					<div class="area-main">
+						<p class="eyebrow">{area.name}</p>
+						<h2>{area.question}</h2>
+						<p>{area.approach}</p>
+					</div>
+					<div class="systems">
+						<span class="mono">Systems / Papers</span>
+						{area.systems.map((system) => <a href={`${base}projects#${system.toLowerCase().replaceAll(' ', '-')}`}>{system} <span class="arrow">↗</span></a>)}
+					</div>
+				</div>
+			</section>
+		))}
+	</div>
+
+	<section class="section principle">
+		<div class="shell">
+			<p class="eyebrow">A unifying principle</p>
+			<p>Better intelligence comes from a better loop between <em>agent</em>, <em>others</em>, and <em>world</em>.</p>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.page-hero em { font-family: var(--serif); font-weight: 400; }
+	.area-grid { display: grid; grid-template-columns: 1fr 2.4fr 1fr; gap: clamp(2rem, 5vw, 6rem); }
+	.area-index { display: flex; flex-direction: column; justify-content: space-between; min-height: 30rem; font: .65rem/1.4 var(--mono); text-transform: uppercase; color: var(--muted); }
+	.area-index span:last-child { max-width: 9rem; }
+	.area-main h2 { margin: 0; max-width: 790px; font-size: clamp(2.8rem, 5.6vw, 6.2rem); line-height: .95; letter-spacing: -.055em; font-weight: 400; }
+	.area-main > p:last-child { max-width: 48rem; margin-top: 2.5rem; color: var(--muted); font-size: 1.15rem; }
+	.systems { display: flex; flex-direction: column; gap: .75rem; }
+	.systems > span { margin-bottom: 1rem; color: var(--muted); font-size: .62rem; text-transform: uppercase; }
+	.systems a { padding-bottom: .7rem; border-bottom: 1px solid var(--line); }
+	.principle p:last-child { max-width: 1100px; margin: 0; font-size: clamp(3rem, 7vw, 7.5rem); line-height: .95; letter-spacing: -.06em; }
+	.principle em { font-family: var(--serif); font-weight: 400; text-decoration: underline; text-decoration-color: var(--acid); }
+	@media (max-width: 800px) {
+		.area-grid { grid-template-columns: 1fr; }
+		.area-index { min-height: auto; flex-direction: row; }
+	}
+</style>

@@ -1,0 +1,57 @@
+---
+interface Publication {
+	id: string;
+	data: {
+		title: string; authors: string; venue: string; year: number; theme: string;
+		abstract: string; badge?: string; links: Record<string, string>;
+	};
+}
+interface Props { publications: Publication[]; limit?: number; interactive?: boolean; }
+const { publications, limit, interactive = false } = Astro.props;
+const shown = typeof limit === 'number' ? publications.slice(0, limit) : publications;
+const themes = [...new Set(publications.map((p) => p.data.theme))];
+---
+
+{interactive && (
+	<div class="filters" aria-label="Filter publications">
+		<button class="filter" data-filter="all" aria-pressed="true">All</button>
+		{themes.map((theme) => <button class="filter" data-filter={theme} aria-pressed="false">{theme}</button>)}
+	</div>
+)}
+<div class="list publication-list">
+	{shown.map((pub) => (
+		<article class="list-row" data-theme={pub.data.theme}>
+			<div class="meta">{pub.data.year}<br />{pub.data.theme}</div>
+			<div>
+				<h2>{pub.data.title}</h2>
+				<p>{pub.data.authors}</p>
+				{pub.data.badge && <span class="tag">{pub.data.badge}</span>}
+			</div>
+			<div class="meta">
+				{pub.data.venue}
+				<div class="pub-links">
+					{Object.entries(pub.data.links).map(([label, url]) => <a href={url} target="_blank">{label} <span class="arrow">↗</span></a>)}
+				</div>
+			</div>
+		</article>
+	))}
+</div>
+
+{interactive && (
+	<script>
+		const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+		const rows = document.querySelectorAll<HTMLElement>('.publication-list [data-theme]');
+		buttons.forEach((button) => button.addEventListener('click', () => {
+			const filter = button.dataset.filter;
+			buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+			rows.forEach((row) => {
+				row.hidden = filter !== 'all' && row.dataset.theme !== filter;
+			});
+		}));
+	</script>
+)}
+
+<style>
+	.pub-links { display: flex; flex-direction: column; gap: .4rem; margin-top: 1.2rem; color: var(--ink); }
+	[hidden] { display: none !important; }
+</style>

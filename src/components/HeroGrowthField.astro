@@ -1,0 +1,80 @@
+<div class="growth" aria-hidden="true">
+	<canvas></canvas>
+	<div class="mark">E<span>/</span>M</div>
+</div>
+
+<script>
+	const host = document.querySelector<HTMLElement>('.growth');
+	const canvas = host?.querySelector('canvas');
+	const ctx = canvas?.getContext('2d');
+	const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	if (host && canvas && ctx) {
+		type Node = { x: number; y: number; vx: number; vy: number; size: number };
+		let nodes: Node[] = [];
+		let frame = 0;
+
+		const resize = () => {
+			const dpr = Math.min(devicePixelRatio, 2);
+			const box = host.getBoundingClientRect();
+			canvas.width = box.width * dpr;
+			canvas.height = box.height * dpr;
+			canvas.style.width = `${box.width}px`;
+			canvas.style.height = `${box.height}px`;
+			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+			nodes = Array.from({ length: box.width < 600 ? 24 : 46 }, (_, i) => {
+				const angle = (i / 46) * Math.PI * 2;
+				const radius = Math.min(box.width, box.height) * (.14 + Math.random() * .32);
+				return {
+					x: box.width * .53 + Math.cos(angle) * radius,
+					y: box.height * .5 + Math.sin(angle) * radius,
+					vx: (Math.random() - .5) * .16,
+					vy: (Math.random() - .5) * .16,
+					size: i % 9 === 0 ? 4 : 2,
+				};
+			});
+		};
+
+		const draw = () => {
+			const box = host.getBoundingClientRect();
+			ctx.clearRect(0, 0, box.width, box.height);
+			for (let i = 0; i < nodes.length; i++) {
+				const a = nodes[i];
+				if (!reduced) {
+					a.x += a.vx; a.y += a.vy;
+					if (a.x < 0 || a.x > box.width) a.vx *= -1;
+					if (a.y < 0 || a.y > box.height) a.vy *= -1;
+				}
+				for (let j = i + 1; j < nodes.length; j++) {
+					const b = nodes[j];
+					const d = Math.hypot(a.x - b.x, a.y - b.y);
+					if (d < 112) {
+						ctx.strokeStyle = `rgba(23,24,21,${.22 * (1 - d / 112)})`;
+						ctx.lineWidth = .8;
+						ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+					}
+				}
+				ctx.fillStyle = a.size > 2 ? '#f07857' : '#171815';
+				ctx.strokeStyle = '#171815';
+				ctx.lineWidth = 1;
+				ctx.beginPath(); ctx.arc(a.x, a.y, a.size, 0, Math.PI * 2); ctx.fill();
+				if (a.size > 2) ctx.stroke();
+			}
+			frame = requestAnimationFrame(draw);
+		};
+
+		resize(); draw();
+		addEventListener('resize', resize, { passive: true });
+		document.addEventListener('astro:before-swap', () => cancelAnimationFrame(frame), { once: true });
+	}
+</script>
+
+<style>
+	.growth { position: relative; width: 100%; height: 100%; min-height: 31rem; overflow: hidden; border-left: 1px solid var(--line); }
+	canvas { position: absolute; inset: 0; }
+	.mark { position: absolute; right: 6%; bottom: 3%; font-size: clamp(8rem, 18vw, 19rem); line-height: .7; letter-spacing: -.13em; font-weight: 500; color: rgba(23,24,21,.035); pointer-events: none; }
+	.mark span { color: color-mix(in srgb, var(--acid) 50%, transparent); }
+	@media (max-width: 800px) {
+		.growth { min-height: 23rem; border-left: 0; border-top: 1px solid var(--line); }
+	}
+</style>

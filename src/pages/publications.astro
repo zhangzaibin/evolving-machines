@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PublicationList from '../components/PublicationList.astro';
+const publications = (await getCollection('publications')).sort((a, b) => b.data.year - a.data.year || a.data.title.localeCompare(b.data.title));
+---
+
+<BaseLayout title="Publications" description="Publications from Evolving Machines Lab across agents, societies, spatial intelligence, and embodied policy.">
+	<header class="page-hero shell">
+		<p class="eyebrow">Publications / {publications.length}</p>
+		<h1 class="display">Knowledge should<br />stay <em>in motion.</em></h1>
+		<p class="lede">Papers are snapshots of an evolving program: understand interaction, build open systems, and move intelligence toward richer worlds.</p>
+	</header>
+	<section class="section">
+		<div class="shell">
+			<PublicationList publications={publications} interactive />
+			<p class="note">* Equal contribution. This page highlights selected work; visit the founder’s academic profile for the complete publication record.</p>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.page-hero em { font-family: var(--serif); font-weight: 400; }
+	.note { margin-top: 2rem; color: var(--muted); font: .65rem var(--mono); }
+</style>

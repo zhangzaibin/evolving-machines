@@ -1,0 +1,61 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = 'Evolving Machines Lab',
+	description = 'Building intelligence that grows through interaction—from digital agents and societies to spatial reasoning and embodied policy.',
+} = Astro.props;
+const base = import.meta.env.BASE_URL;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const fullTitle = title === 'Evolving Machines Lab' ? title : `${title} — Evolving Machines Lab`;
+const schema = {
+	'@context': 'https://schema.org',
+	'@type': 'ResearchOrganization',
+	name: 'Evolving Machines Lab',
+	url: Astro.site,
+	description,
+	founder: { '@type': 'Person', name: 'Zaibin Zhang', url: 'https://zhangzaibin.github.io/' },
+};
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		<link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+		<meta name="theme-color" content="#f3f1e9" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={new URL(`${base}og.svg`, Astro.site)} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<title>{fullTitle}</title>
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+	</head>
+	<body>
+		<a class="skip" href="#content">Skip to content</a>
+		<Header />
+		<main id="content" class="page"><slot /></main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.skip {
+		position: fixed; left: 1rem; top: 1rem; z-index: 1000; transform: translateY(-200%);
+		padding: .75rem 1rem; background: var(--ink); color: var(--paper);
+	}
+	.skip:focus { transform: translateY(0); }
+</style>

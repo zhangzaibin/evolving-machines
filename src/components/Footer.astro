@@ -1,0 +1,33 @@
+<footer>
+	<div class="shell footer-main">
+		<p class="callout">Build what<br /><em>evolves.</em></p>
+		<div class="contact">
+			<p class="eyebrow">Collaborate</p>
+			<p>We welcome researchers and builders working on open, reliable, and continually evolving intelligence.</p>
+			<a href="mailto:dlutzzb@gmail.com">dlutzzb@gmail.com <span class="arrow">↗</span></a>
+		</div>
+	</div>
+	<div class="shell footer-meta">
+		<span>© {new Date().getFullYear()} Evolving Machines Lab</span>
+		<span>DLUT · Oxford · KAUST · UC San Diego</span>
+		<div><a href="https://github.com/zhangzaibin">GitHub</a> · <a href="https://zhangzaibin.github.io/">Founder</a></div>
+	</div>
+</footer>
+
+<style>
+	footer { background: var(--ink); color: var(--paper); padding-top: clamp(5rem, 10vw, 9rem); }
+	.footer-main { display: grid; grid-template-columns: 2fr 1fr; align-items: end; gap: 5rem; padding-bottom: 7rem; }
+	.callout { margin: 0; font-size: clamp(4rem, 10vw, 10rem); line-height: .78; letter-spacing: -.07em; }
+	.callout em { font-family: var(--serif); font-weight: 400; color: var(--acid); }
+	.contact { max-width: 30rem; }
+	.contact .eyebrow::before { border-color: var(--paper); }
+	.contact p:not(.eyebrow) { color: #aaa99f; }
+	.contact a { display: inline-block; margin-top: 2rem; padding-bottom: .4rem; border-bottom: 1px solid currentColor; }
+	.footer-meta { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; padding-block: 1.3rem; border-top: 1px solid #42433e; color: #aaa99f; font: .62rem/1.5 var(--mono); text-transform: uppercase; }
+	.footer-meta > :last-child { text-align: right; }
+	@media (max-width: 760px) {
+		.footer-main { grid-template-columns: 1fr; }
+		.footer-meta { grid-template-columns: 1fr; }
+		.footer-meta > :last-child { text-align: left; }
+	}
+</style>
