@@ -1,0 +1,141 @@
+<section class="framework" aria-labelledby="framework-title">
+	<div class="framework-meta">
+		<span>Environment 01</span>
+		<span>Evolution engine</span>
+		<span>Environment 02</span>
+	</div>
+
+	<div class="map">
+		<div class="flow" aria-hidden="true">
+			<span></span>
+			<span></span>
+		</div>
+
+		<article class="world digital">
+			<div class="world-top">
+				<span>Agents · Societies · Simulation</span>
+				<strong>01</strong>
+			</div>
+			<svg viewBox="0 0 320 170" aria-hidden="true">
+				<path d="M38 87h244M79 43l69 44-69 42m69-42 87-45m-87 45 87 44" />
+				<circle cx="38" cy="87" r="7" />
+				<circle cx="79" cy="43" r="10" />
+				<circle cx="79" cy="129" r="6" />
+				<circle class="signal" cx="148" cy="87" r="17" />
+				<circle cx="235" cy="42" r="8" />
+				<circle cx="235" cy="131" r="12" />
+				<circle cx="282" cy="87" r="6" />
+			</svg>
+			<div class="world-copy">
+				<h3>Digital World</h3>
+				<p>Scalable environments where agents interact, form societies, and generate experience.</p>
+			</div>
+			<div class="projects"><span>OASIS</span></div>
+		</article>
+
+		<div class="engine">
+			<p class="engine-label">How intelligence improves</p>
+			<div class="engine-title">
+				<span aria-hidden="true">↻</span>
+				<div>
+					<small>The method</small>
+					<h3 id="framework-title">Evolving</h3>
+				</div>
+			</div>
+			<ol>
+				<li>
+					<span>01</span>
+					<div><strong>Reinforcement Learning</strong><small>Feedback becomes policy</small></div>
+				</li>
+				<li>
+					<span>02</span>
+					<div><strong>Composition Generalization</strong><small>Skills become new behavior</small></div>
+				</li>
+				<li>
+					<span>03</span>
+					<div><strong>Self-Evolving</strong><small>Experience becomes curriculum</small></div>
+				</li>
+			</ol>
+			<p class="engine-note">Act → learn → adapt → act again</p>
+		</div>
+
+		<article class="world physical">
+			<div class="world-top">
+				<span>Space · Bodies · Action</span>
+				<strong>02</strong>
+			</div>
+			<svg viewBox="0 0 320 170" aria-hidden="true">
+				<path d="M38 133h244M62 133l48-71 51 44 52-72 45 99M110 62l51 44m52-72-52 72" />
+				<path class="arc" d="M53 116c58-105 170-99 218-17" />
+				<circle cx="62" cy="133" r="7" />
+				<circle cx="110" cy="62" r="11" />
+				<circle class="signal" cx="161" cy="106" r="17" />
+				<circle cx="213" cy="34" r="9" />
+				<circle cx="258" cy="133" r="7" />
+			</svg>
+			<div class="world-copy">
+				<h3>Physical World</h3>
+				<p>Grounded environments where agents perceive space, compose skills, and create action.</p>
+			</div>
+			<div class="projects"><span>SPAgent</span><span>Future</span></div>
+		</article>
+	</div>
+
+	<div class="framework-foot">
+		<span>Experience</span>
+		<p>Both worlds generate feedback for the same evolving intelligence.</p>
+		<span>Adaptation</span>
+	</div>
+</section>
+
+<style>
+	.framework { border: 1px solid var(--line-strong); background: var(--white); }
+	.framework-meta { display: grid; grid-template-columns: 1fr .82fr 1fr; border-bottom: 1px solid var(--line); color: var(--muted); font: .58rem var(--mono); letter-spacing: .07em; text-transform: uppercase; }
+	.framework-meta span { padding: .8rem 1rem; }
+	.framework-meta span:nth-child(2) { text-align: center; border-inline: 1px solid var(--line); }
+	.framework-meta span:last-child { text-align: right; }
+	.map { position: relative; display: grid; grid-template-columns: 1fr .82fr 1fr; min-height: 36rem; }
+	.flow { position: absolute; z-index: 0; left: 26%; right: 26%; top: 50%; height: 1px; background: var(--line-strong); }
+	.flow span { position: absolute; top: -.22rem; width: .45rem; height: .45rem; border-top: 1px solid var(--ink); border-right: 1px solid var(--ink); }
+	.flow span:first-child { left: 0; transform: rotate(225deg); }
+	.flow span:last-child { right: 0; transform: rotate(45deg); }
+	.world, .engine { position: relative; z-index: 1; }
+	.world { display: flex; flex-direction: column; padding: clamp(1.5rem, 2.7vw, 2.7rem); background: color-mix(in srgb, var(--paper) 70%, var(--white)); }
+	.world-top { display: flex; justify-content: space-between; gap: 1rem; color: var(--muted); font: .57rem var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+	.world-top strong { color: var(--ink); font-weight: 500; }
+	.world svg { width: 100%; margin: auto 0; color: var(--ink); }
+	.world svg path { fill: none; stroke: currentColor; stroke-width: 1; vector-effect: non-scaling-stroke; }
+	.world svg .arc { stroke-dasharray: 3 7; opacity: .4; }
+	.world svg circle { fill: var(--white); stroke: currentColor; stroke-width: 1.2; }
+	.world svg .signal { fill: var(--acid); }
+	.world-copy h3 { margin: 0 0 .8rem; font-size: clamp(2.35rem, 3.2vw, 3.45rem); line-height: .92; letter-spacing: -.055em; font-weight: 500; white-space: nowrap; }
+	.world-copy p { max-width: 25rem; margin: 0; color: var(--muted); font-size: .9rem; }
+	.projects { display: flex; gap: .4rem; margin-top: 1.5rem; }
+	.projects span { padding: .35rem .55rem; border: 1px solid var(--line-strong); border-radius: 2rem; font: .57rem var(--mono); text-transform: uppercase; }
+	.engine { align-self: center; margin-inline: -1px; padding: clamp(1.5rem, 2.5vw, 2.5rem); border: 1px solid var(--line-strong); background: var(--white); }
+	.engine-label { margin: 0 0 2.5rem; color: var(--muted); font: .57rem var(--mono); letter-spacing: .06em; text-align: center; text-transform: uppercase; }
+	.engine-title { display: flex; justify-content: center; align-items: center; gap: 1rem; padding-bottom: 2rem; }
+	.engine-title > span { display: grid; width: 3rem; height: 3rem; place-items: center; border: 1px solid var(--line-strong); border-radius: 50%; color: var(--acid-deep); font-size: 1.35rem; }
+	.engine-title small { display: block; color: var(--muted); font: .55rem var(--mono); text-transform: uppercase; }
+	.engine-title h3 { margin: .2rem 0 0; font-size: clamp(2.1rem, 3vw, 3.2rem); line-height: .9; letter-spacing: -.055em; font-weight: 500; }
+	.engine ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+	.engine li { display: grid; grid-template-columns: 1.7rem 1fr; gap: .7rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+	.engine li > span { color: var(--acid-deep); font: .56rem var(--mono); }
+	.engine li strong { display: block; font-size: .84rem; font-weight: 600; letter-spacing: -.015em; }
+	.engine li small { display: block; margin-top: .15rem; color: var(--muted); font-size: .69rem; }
+	.engine-note { margin: 1.5rem 0 0; color: var(--muted); font: .56rem var(--mono); text-align: center; text-transform: uppercase; }
+	.framework-foot { display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; padding: .9rem 1rem; border-top: 1px solid var(--line); align-items: center; }
+	.framework-foot span { color: var(--muted); font: .56rem var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+	.framework-foot span:last-child { text-align: right; }
+	.framework-foot p { margin: 0; color: var(--muted); font-size: .75rem; text-align: center; }
+	@media (max-width: 900px) {
+		.framework-meta { display: none; }
+		.map { grid-template-columns: 1fr; }
+		.flow { display: none; }
+		.world { min-height: 29rem; }
+		.engine { width: calc(100% - 2rem); margin: -1rem auto; }
+		.physical { padding-top: 4rem; }
+		.framework-foot { grid-template-columns: 1fr; }
+		.framework-foot span, .framework-foot span:last-child, .framework-foot p { text-align: left; }
+	}
+</style>

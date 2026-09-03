@@ -11,10 +11,16 @@ const projects = defineCollection({
 		tagline: z.string(),
 		description: z.string(),
 		theme: z.string(),
+		world: z.enum(['Digital World', 'Physical World']),
 		year: z.number(),
 		metrics: z.array(z.string()).default([]),
 		links: z.record(z.string(), z.string()).default({}),
 		image: z.string().optional(),
+		modules: z.array(z.object({
+			name: z.string(),
+			description: z.string(),
+			status: z.enum(['Open Source', 'Coming Soon']),
+		})).optional(),
 	}),
 });
 

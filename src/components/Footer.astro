@@ -15,14 +15,13 @@
 </footer>
 
 <style>
-	footer { background: var(--ink); color: var(--paper); padding-top: clamp(5rem, 10vw, 9rem); }
-	.footer-main { display: grid; grid-template-columns: 2fr 1fr; align-items: end; gap: 5rem; padding-bottom: 7rem; }
-	.callout { margin: 0; font-size: clamp(4rem, 10vw, 10rem); line-height: .78; letter-spacing: -.07em; }
+	footer { background: var(--ink); color: var(--paper); padding-top: clamp(5rem, 8vw, 7rem); }
+	.footer-main { display: grid; grid-template-columns: 1.6fr 1fr; align-items: end; gap: 5rem; padding-bottom: clamp(5rem, 7vw, 7rem); }
+	.callout { margin: 0; font-size: clamp(3.5rem, 7vw, 7rem); line-height: .84; letter-spacing: -.06em; }
 	.callout em { font-family: var(--serif); font-weight: 400; color: var(--acid); }
 	.contact { max-width: 30rem; }
-	.contact .eyebrow::before { border-color: var(--paper); }
 	.contact p:not(.eyebrow) { color: #aaa99f; }
-	.contact a { display: inline-block; margin-top: 2rem; padding-bottom: .4rem; border-bottom: 1px solid currentColor; }
+	.contact a { display: inline-block; margin-top: 1.5rem; padding-bottom: .35rem; border-bottom: 1px solid currentColor; font-size: .9rem; }
 	.footer-meta { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; padding-block: 1.3rem; border-top: 1px solid #42433e; color: #aaa99f; font: .62rem/1.5 var(--mono); text-transform: uppercase; }
 	.footer-meta > :last-child { text-align: right; }
 	@media (max-width: 760px) {

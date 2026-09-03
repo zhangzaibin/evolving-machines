@@ -10,7 +10,7 @@ interface Props {
 
 const {
 	title = 'Evolving Machines Lab',
-	description = 'Building intelligence that grows through interaction—from digital agents and societies to spatial reasoning and embodied policy.',
+	description = 'Building machines that evolve through interaction, reinforcement learning, and experience across digital and physical worlds.',
 } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -34,7 +34,7 @@ const schema = {
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonical} />
 		<link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
-		<meta name="theme-color" content="#f3f1e9" />
+		<meta name="theme-color" content="#f6f6f1" />
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={description} />

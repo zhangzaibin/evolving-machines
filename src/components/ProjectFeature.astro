@@ -8,6 +8,11 @@ interface Props {
 		metrics: string[];
 		links: Record<string, string>;
 		image?: string;
+		modules?: {
+			name: string;
+			description: string;
+			status: 'Open Source' | 'Coming Soon';
+		}[];
 	};
 	index: number;
 	large?: boolean;
@@ -16,8 +21,8 @@ const { project, index, large = false } = Astro.props;
 const variant = (index - 1) % 3;
 ---
 
-<article class:list={['feature', { large }]}>
-	<div class="visual" data-variant={variant}>
+<article class:list={['feature', { large }]} data-variant={variant}>
+	<div class="visual">
 		<div class="visual-label">{String(index).padStart(2, '0')} / {project.kicker}</div>
 		<svg class="diagram" viewBox="0 0 700 480" aria-hidden="true">
 			<defs>
@@ -75,6 +80,19 @@ const variant = (index - 1) % 3;
 		<h3>{project.name}</h3>
 		<p class="tagline">{project.tagline}</p>
 		<p class="description">{project.description}</p>
+		{project.modules && (
+			<div class="modules-list" aria-label={`${project.name} initiatives`}>
+				{project.modules.map((module) => (
+					<div class="module">
+						<div>
+							<strong>{module.name}</strong>
+							<p>{module.description}</p>
+						</div>
+						<span class:list={['status', { soon: module.status === 'Coming Soon' }]}>{module.status}</span>
+					</div>
+				))}
+			</div>
+		)}
 		<ul>{project.metrics.map((item) => <li>{item}</li>)}</ul>
 		<div class="links">
 			{Object.entries(project.links).map(([label, url]) => <a href={url} target="_blank">{label} <span class="arrow">↗</span></a>)}
@@ -83,12 +101,13 @@ const variant = (index - 1) % 3;
 </article>
 
 <style>
-	.feature { display: grid; grid-template-columns: 1.3fr 1fr; min-height: 35rem; border: 1px solid var(--line); background: var(--paper); }
-	.feature + .feature { margin-top: 2rem; }
-	.visual { position: relative; min-height: 30rem; overflow: hidden; background: var(--paper-soft); border-right: 1px solid var(--line); }
-	.visual::after { content: ""; position: absolute; width: 18rem; height: 18rem; right: -8rem; bottom: -8rem; border-radius: 50%; background: color-mix(in srgb, var(--acid) 72%, transparent); filter: blur(1px); }
+	.feature { display: grid; grid-template-columns: 1fr 1fr; min-height: 29rem; border: 1px solid var(--line); background: var(--paper); }
+	.feature + .feature { margin-top: 1.25rem; }
+	.feature[data-variant="1"] .visual { order: 2; border-right: 0; border-left: 1px solid var(--line); }
+	.visual { position: relative; min-height: 27rem; overflow: hidden; background: var(--paper-soft); border-right: 1px solid var(--line); }
+	.visual::after { content: ""; position: absolute; width: 14rem; height: 14rem; right: -5rem; bottom: -6rem; border-radius: 50%; background: color-mix(in srgb, var(--acid) 56%, transparent); filter: blur(10px); }
 	.diagram { position: absolute; inset: 8% 4% 4%; width: 92%; height: 88%; color: var(--ink); transition: transform .7s cubic-bezier(.2,.7,.2,1); }
-	.diagram g > path, .diagram .orbit, .diagram g > rect { fill: none; stroke: currentColor; stroke-width: 1.3; vector-effect: non-scaling-stroke; }
+	.diagram g > path, .diagram .orbit, .diagram g > rect { fill: none; stroke: currentColor; stroke-width: 1.1; vector-effect: non-scaling-stroke; }
 	.diagram .orbit { stroke-dasharray: 4 8; }
 	.diagram .faint { opacity: .28; }
 	.diagram .node { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; }
@@ -98,16 +117,23 @@ const variant = (index - 1) % 3;
 	.feature:hover .diagram { transform: scale(1.025); }
 	.feature:hover .diagram .core { transform: scale(1.3); }
 	.diagram-code { position: absolute; left: 1.2rem; bottom: 1rem; font: .58rem var(--mono); letter-spacing: .08em; color: var(--muted); }
-	.visual-label { position: absolute; z-index: 2; left: 1rem; top: 1rem; padding: .45rem .65rem; background: var(--paper); border: 1px solid var(--ink); font: .62rem var(--mono); text-transform: uppercase; }
-	.body { padding: clamp(2rem, 5vw, 5rem); display: flex; flex-direction: column; justify-content: center; }
-	h3 { margin: 0; font-size: clamp(3rem, 6vw, 6rem); line-height: .85; letter-spacing: -.07em; font-weight: 450; }
-	.tagline { margin: 2rem 0 1rem; font-size: 1.35rem; line-height: 1.2; letter-spacing: -.025em; }
-	.description { color: var(--muted); max-width: 38rem; }
-	ul { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; padding: 0; margin: 2rem 0; }
-	li { padding: .35rem .55rem; border: 1px solid var(--line); border-radius: 2rem; font: .62rem var(--mono); text-transform: uppercase; }
-	.links { display: flex; gap: 1.5rem; font: .68rem var(--mono); text-transform: uppercase; }
+	.visual-label { position: absolute; z-index: 2; left: 1rem; top: 1rem; padding: .42rem .6rem; background: color-mix(in srgb, var(--paper) 88%, transparent); border: 1px solid var(--line-strong); font: .58rem var(--mono); letter-spacing: .04em; text-transform: uppercase; backdrop-filter: blur(8px); }
+	.body { padding: clamp(2rem, 3.5vw, 3.5rem); display: flex; flex-direction: column; justify-content: center; }
+	h3 { margin: 0; font-size: clamp(3rem, 4.7vw, 4.7rem); line-height: .9; letter-spacing: -.06em; font-weight: 500; }
+	.tagline { margin: 1.5rem 0 .8rem; font-size: clamp(1.1rem, 1.5vw, 1.3rem); line-height: 1.25; letter-spacing: -.025em; }
+	.description { margin: 0; color: var(--muted); max-width: 35rem; font-size: .95rem; }
+	.modules-list { margin-top: 1.5rem; border-top: 1px solid var(--line); }
+	.module { display: grid; grid-template-columns: 1fr auto; gap: 1.25rem; padding: .8rem 0; border-bottom: 1px solid var(--line); align-items: start; }
+	.module strong { font-size: .92rem; font-weight: 650; letter-spacing: -.02em; }
+	.module p { margin: .2rem 0 0; max-width: 29rem; color: var(--muted); font-size: .78rem; line-height: 1.4; }
+	.status { padding: .35rem .55rem; border: 1px solid var(--ink); border-radius: 2rem; font: .56rem var(--mono); letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
+	.status.soon { border-color: var(--line); color: var(--muted); }
+	ul { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; padding: 0; margin: 1.5rem 0; }
+	li { padding: .32rem .5rem; border: 1px solid var(--line); border-radius: 2rem; font: .58rem var(--mono); text-transform: uppercase; }
+	.links { display: flex; gap: 1.5rem; font: .64rem var(--mono); letter-spacing: .04em; text-transform: uppercase; }
 	@media (max-width: 800px) {
 		.feature { grid-template-columns: 1fr; }
+		.feature[data-variant="1"] .visual { order: 0; border-left: 0; }
 		.visual { min-height: 20rem; border-right: 0; border-bottom: 1px solid var(--line); }
 	}
 </style>

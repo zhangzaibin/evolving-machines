@@ -2,7 +2,9 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PublicationList from '../components/PublicationList.astro';
-const publications = (await getCollection('publications')).sort((a, b) => b.data.year - a.data.year || a.data.title.localeCompare(b.data.title));
+const publicationOrder = ['oasis', 'psysafe', 'think3d', 'ma-vla', 'attention-dp3', 'comas', 'agentic-rl'];
+const allPublications = await getCollection('publications');
+const publications = publicationOrder.map((id) => allPublications.find((publication) => publication.id === id)!).filter(Boolean);
 ---
 
 <BaseLayout title="Publications" description="Publications from Evolving Machines Lab across agents, societies, spatial intelligence, and embodied policy.">
