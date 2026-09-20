@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectFeature from '../components/ProjectFeature.astro';
 import PublicationList from '../components/PublicationList.astro';
 import EvolutionFramework from '../components/EvolutionFramework.astro';
+import HeroGrowthField from '../components/HeroGrowthField.astro';
 
 const allProjects = await getCollection('projects');
 const base = import.meta.env.BASE_URL;
@@ -18,27 +19,29 @@ const flagships = flagshipIds.map((id) => allProjects.find((project) => project.
 <BaseLayout>
 	<section class="hero shell">
 		<div class="hero-copy">
+			<p class="eyebrow">Digital intelligence · Embodied intelligence</p>
 			<h1 class="display">Evolving <em>Machines</em> Lab</h1>
-			<p class="hero-line">Building machines that evolve across digital and physical worlds</p>
-			<p class="intro">We study how intelligence improves through interaction, reinforcement learning, self-evolution, and compositional experience.</p>
+			<p class="hero-line">How can agents keep evolving—across digital and physical worlds?</p>
+			<p class="lab-note">We are a group of passionate researchers from institutions including Dalian University of Technology and the University of Oxford. Our team members received an ACL 2024 Outstanding Paper Award, and our open-source projects have earned over 5,000 GitHub stars, establishing worldwide recognition in agent research.</p>
 			<div class="hero-actions">
-				<a href={`${base}research`}>Explore research <span class="arrow">↗</span></a>
-				<a href={`${base}projects`}>View systems <span class="arrow">→</span></a>
+				<a href="#evolution">See how we evolve <span class="arrow">↓</span></a>
+				<a href={`${base}projects`}>Explore systems <span class="arrow">↗</span></a>
+			</div>
+		</div>
+		<div class="hero-visual"><HeroGrowthField /></div>
+	</section>
+
+	<section class="about section">
+		<div class="shell">
+			<div class="about-copy">
+				<p class="eyebrow">About the lab</p>
+				<p>We build agents that do more than execute. They <em>act</em>, gather experience, and become more capable in the worlds they inhabit.</p>
 			</div>
 		</div>
 	</section>
 
-	<section class="manifesto section">
+	<section class="section worlds" id="evolution">
 		<div class="shell">
-			<p>Intelligence does not emerge in isolation. It grows by <em>acting</em>, <em>interacting</em>, and <em>adapting</em>.</p>
-		</div>
-	</section>
-
-	<section class="section worlds">
-		<div class="shell">
-			<div class="framework-head">
-				<h2 class="display">Framework.</h2>
-			</div>
 			<EvolutionFramework />
 		</div>
 	</section>
@@ -95,21 +98,22 @@ const flagships = flagshipIds.map((id) => allProjects.find((project) => project.
 </BaseLayout>
 
 <style>
-	.hero { min-height: calc(86svh - 72px); display: flex; align-items: center; padding-block: clamp(5rem, 9vw, 9rem); }
+	.hero { min-height: calc(92svh - 72px); display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(2rem, 5vw, 6rem); align-items: center; padding-block: clamp(4rem, 7vw, 7rem); }
 	.hero-copy { width: 100%; }
-	.hero h1 { max-width: 100%; font-size: clamp(4rem, 8.5vw, 8.5rem); white-space: nowrap; }
+	.hero h1 { max-width: 100%; font-size: clamp(4rem, 7.7vw, 8rem); }
 	.hero h1 em { font-family: var(--serif); font-weight: 400; }
-	.hero-line { max-width: 48rem; margin: clamp(3rem, 6vw, 6rem) 0 0; font-size: clamp(1.2rem, 2vw, 1.75rem); line-height: 1.2; letter-spacing: -.03em; }
-	.intro { max-width: 43rem; margin: 1rem 0 0; color: var(--muted); font-size: .95rem; }
+	.hero .eyebrow { margin-bottom: 2rem; }
+	.hero-line { max-width: 43rem; margin: clamp(2.5rem, 5vw, 4.5rem) 0 0; font-size: clamp(1.2rem, 2vw, 1.75rem); line-height: 1.2; letter-spacing: -.03em; }
+	.lab-note { max-width: 41rem; margin: .75rem 0 0; color: var(--muted); font-size: .78rem; }
 	.hero-actions { display: flex; gap: 2rem; margin-top: 2rem; font: .65rem var(--mono); text-transform: uppercase; letter-spacing: .04em; }
 	.hero-actions a:first-child { padding-bottom: .35rem; border-bottom: 1px solid var(--ink); }
-	.manifesto p:last-child { max-width: 1080px; margin: 0; font-size: clamp(2.7rem, 5.8vw, 5.8rem); line-height: 1; letter-spacing: -.055em; }
-	.manifesto em { font-family: var(--serif); font-weight: 400; color: var(--acid-deep); }
+	.hero-visual { min-width: 0; height: clamp(28rem, 54vw, 44rem); }
+	.about-copy { display: grid; grid-template-columns: .35fr 1.65fr; gap: 3rem; align-items: start; }
+	.about-copy > p:last-child { max-width: 1040px; margin: 0; font-size: clamp(2.4rem, 5vw, 5.1rem); line-height: 1; letter-spacing: -.055em; }
+	.about-copy em { font-family: var(--serif); font-weight: 400; color: var(--acid-deep); }
 	.section-head { display: grid; grid-template-columns: 1.2fr .8fr; gap: 4rem; align-items: end; margin-bottom: clamp(3.5rem, 6vw, 6rem); }
 	.section-head h2 { font-size: clamp(3rem, 5.8vw, 5.8rem); }
 	.section-head.compact { grid-template-columns: 1fr auto; }
-	.framework-head { margin: 0 0 clamp(3.5rem, 6vw, 6rem); text-align: left; }
-	.framework-head h2 { font-size: clamp(3rem, 5.8vw, 5.8rem); }
 	.all-link { align-self: end; padding-bottom: .35rem; border-bottom: 1px solid var(--ink); font: .68rem var(--mono); text-transform: uppercase; }
 	.institution-intro { margin: 0 0 clamp(3rem, 5vw, 5rem); font-size: clamp(2.8rem, 5.5vw, 5.5rem); line-height: .95; letter-spacing: -.055em; font-weight: 450; }
 	.institution-intro em { font-family: var(--serif); font-weight: 400; }
@@ -120,8 +124,10 @@ const flagships = flagshipIds.map((id) => allProjects.find((project) => project.
 	.institution-grid .arrow { align-self: flex-end; color: var(--ink); }
 	.institution-grid strong { font-size: clamp(1.2rem, 1.7vw, 1.75rem); line-height: 1.05; letter-spacing: -.04em; font-weight: 500; }
 	@media (max-width: 800px) {
-		.hero { min-height: auto; padding-block: 6rem; }
+		.hero { min-height: auto; grid-template-columns: 1fr; padding-block: 6rem; }
 		.hero h1 { white-space: normal; }
+		.hero-visual { height: 22rem; }
+		.about-copy { grid-template-columns: 1fr; gap: 1rem; }
 		.section-head, .section-head.compact { grid-template-columns: 1fr; gap: 2rem; }
 		.all-link { justify-self: start; }
 		.institution-grid { grid-template-columns: repeat(2, 1fr); }
