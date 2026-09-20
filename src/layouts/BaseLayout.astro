@@ -8,20 +8,47 @@ interface Props {
 	description?: string;
 }
 
-const {
-	title = 'Evolving Machines Lab',
-	description = 'Building machines that evolve through interaction, reinforcement learning, and experience across digital and physical worlds.',
-} = Astro.props;
+const siteName = 'Evolving Machines Lab';
+const siteDescription = 'Evolving Machines Lab researches AI agents that learn and evolve across digital and physical worlds through interaction, reinforcement learning, and experience.';
+const { title = siteName, description = siteDescription } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const canonical = new URL(Astro.url.pathname, Astro.site);
-const fullTitle = title === 'Evolving Machines Lab' ? title : `${title} — Evolving Machines Lab`;
+const siteUrl = new URL(base.replace(/\/?$/, '/'), Astro.site).href;
+const canonical = new URL(Astro.url.pathname.replace(/\/?$/, '/'), Astro.site);
+const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
+const organizationId = `${siteUrl}#organization`;
+const websiteId = `${siteUrl}#website`;
 const schema = {
 	'@context': 'https://schema.org',
-	'@type': 'ResearchOrganization',
-	name: 'Evolving Machines Lab',
-	url: Astro.site,
-	description,
-	founder: { '@type': 'Person', name: 'Zaibin Zhang', url: 'https://zhangzaibin.github.io/' },
+	'@graph': [
+		{
+			'@type': 'ResearchOrganization',
+			'@id': organizationId,
+			name: siteName,
+			url: siteUrl,
+			description: siteDescription,
+			logo: new URL(`${base}favicon.svg`, Astro.site).href,
+			founder: { '@type': 'Person', name: 'Zaibin Zhang', url: 'https://zhangzaibin.github.io/' },
+		},
+		{
+			'@type': 'WebSite',
+			'@id': websiteId,
+			name: siteName,
+			url: siteUrl,
+			description: siteDescription,
+			inLanguage: 'en',
+			publisher: { '@id': organizationId },
+		},
+		{
+			'@type': 'WebPage',
+			'@id': `${canonical.href}#webpage`,
+			name: fullTitle,
+			url: canonical.href,
+			description,
+			inLanguage: 'en',
+			isPartOf: { '@id': websiteId },
+			about: { '@id': organizationId },
+		},
+	],
 };
 ---
 
@@ -32,17 +59,24 @@ const schema = {
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
+		<meta name="application-name" content={siteName} />
+		<meta name="robots" content="index, follow, max-image-preview:large" />
 		<link rel="canonical" href={canonical} />
+		<link rel="sitemap" type="application/xml" href={`${base}sitemap-index.xml`} />
 		<link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
 		<meta name="theme-color" content="#f8f7f4" />
 		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={siteName} />
 		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonical} />
 		<meta property="og:image" content={new URL(`${base}og.svg`, Astro.site)} />
+		<meta property="og:image:alt" content={`${siteName} — building intelligence that grows through interaction`} />
 		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={fullTitle} />
+		<meta name="twitter:description" content={description} />
 		<title>{fullTitle}</title>
-		<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
 	</head>
 	<body>
 		<a class="skip" href="#content">Skip to content</a>

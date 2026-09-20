@@ -2,7 +2,7 @@
 
 The website for **Evolving Machines Lab** — building intelligence that grows through interaction.
 
-Public URL: `https://zhangzaibin.github.io/evolving-machines/`
+Public website: [Evolving Machines Lab](https://zhangzaibin.github.io/evolving-machines/)
 
 ## Development
 
@@ -47,6 +47,21 @@ Deployment notes:
 2. The Astro base path is `/evolving-machines`; keep it aligned with the repository name.
 3. Add analytics only after choosing a privacy policy.
 4. Run `npm run build` and test `dist/` with `npm run preview`.
+
+## Search discovery
+
+The shared layout identifies Evolving Machines Lab through page titles, descriptions, Open Graph metadata, and linked `ResearchOrganization`, `WebSite`, and `WebPage` structured data. Canonical URLs match the trailing-slash URLs in the generated sitemap.
+
+After deployment, the site owner can request indexing:
+
+1. Add the URL-prefix property `https://zhangzaibin.github.io/evolving-machines/` in [Google Search Console](https://search.google.com/search-console/) and complete ownership verification using the supplied HTML file or meta tag.
+2. Submit `https://zhangzaibin.github.io/evolving-machines/sitemap-index.xml` in Sitemaps.
+3. Inspect the homepage URL and select **Request indexing**. Crawling and inclusion in search results are controlled by Google and are not immediate or guaranteed.
+4. Link to the lab website by its full name from relevant profiles and project pages.
+
+The effective robots file is `https://zhangzaibin.github.io/robots.txt`, managed by the personal-site repository. A robots file inside `/evolving-machines/` would not control crawling. The domain-root file currently allows crawling; its sitemap declaration covers the personal site, so submit the lab sitemap separately.
+
+Google supports a distinct search-result **site name** at the domain or subdomain level, not for a subdirectory. These pages can still be indexed under their page titles. A dedicated lab domain or subdomain would make a distinct site name eligible; it would require updating the site/base settings and configuring redirects. See [Google's site-name guidance](https://developers.google.com/search/docs/appearance/site-names).
 
 ## Brand use
 
