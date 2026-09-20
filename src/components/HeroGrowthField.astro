@@ -1,80 +1,45 @@
+---
+// A deterministic point field, rendered without a canvas loop or client runtime.
+const points = Array.from({ length: 1800 }, (_, i) => {
+	const y = 1 - (i / 1799) * 2;
+	const radius = Math.sqrt(1 - y * y);
+	const angle = i * Math.PI * (3 - Math.sqrt(5));
+	const x = Math.cos(angle) * radius;
+	const z = Math.sin(angle) * radius;
+	const twist = y * .55;
+	const rotatedX = x * Math.cos(twist) - z * Math.sin(twist);
+	const rotatedZ = x * Math.sin(twist) + z * Math.cos(twist);
+	const scale = 1 + rotatedZ * .12;
+	return { x: 280 + rotatedX * 191 * scale, y: 270 + y * 191 * scale,
+		r: .7 + (rotatedZ + 1) * .65, opacity: .18 + (rotatedZ + 1) * .36,
+		color: rotatedX + y * .45 > .05 ? '#bd674b' : '#414940', z: rotatedZ };
+}).sort((a, b) => a.z - b.z);
+---
+
 <div class="growth" aria-hidden="true">
-	<canvas></canvas>
-	<div class="mark">E<span>/</span>M</div>
+	<div class="field-label"><span class="live-dot"></span> An open-ended evolution</div>
+	<svg class="field" viewBox="0 0 560 540" fill="none">
+		<path class="guide" d="M280 22V518M30 270H530" stroke-dasharray="2 7" />
+		<circle class="guide" cx="280" cy="270" r="222" stroke-dasharray="2 7" />
+		<g class="sphere">{points.map((p) => <circle cx={p.x} cy={p.y} r={p.r} fill={p.color} opacity={p.opacity} />)}</g>
+		<ellipse class="orbit" cx="280" cy="270" rx="246" ry="77" transform="rotate(-29 280 270)" />
+		<circle cx="495" cy="151" r="4" fill="var(--acid)" />
+		<circle cx="65" cy="389" r="3" fill="var(--ink)" />
+		<path class="ticks" d="M280 43v10M280 487v10M53 270h10M497 270h10" />
+	</svg>
+	<div class="field-caption"><span>Interaction → adaptation</span><span>EML / 001</span></div>
 </div>
 
-<script>
-	const host = document.querySelector<HTMLElement>('.growth');
-	const canvas = host?.querySelector('canvas');
-	const ctx = canvas?.getContext('2d');
-	const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-	if (host && canvas && ctx) {
-		type Node = { x: number; y: number; vx: number; vy: number; size: number };
-		let nodes: Node[] = [];
-		let frame = 0;
-
-		const resize = () => {
-			const dpr = Math.min(devicePixelRatio, 2);
-			const box = host.getBoundingClientRect();
-			canvas.width = box.width * dpr;
-			canvas.height = box.height * dpr;
-			canvas.style.width = `${box.width}px`;
-			canvas.style.height = `${box.height}px`;
-			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-			nodes = Array.from({ length: box.width < 600 ? 24 : 46 }, (_, i) => {
-				const angle = (i / 46) * Math.PI * 2;
-				const radius = Math.min(box.width, box.height) * (.14 + Math.random() * .32);
-				return {
-					x: box.width * .53 + Math.cos(angle) * radius,
-					y: box.height * .5 + Math.sin(angle) * radius,
-					vx: (Math.random() - .5) * .16,
-					vy: (Math.random() - .5) * .16,
-					size: i % 9 === 0 ? 4 : 2,
-				};
-			});
-		};
-
-		const draw = () => {
-			const box = host.getBoundingClientRect();
-			ctx.clearRect(0, 0, box.width, box.height);
-			for (let i = 0; i < nodes.length; i++) {
-				const a = nodes[i];
-				if (!reduced) {
-					a.x += a.vx; a.y += a.vy;
-					if (a.x < 0 || a.x > box.width) a.vx *= -1;
-					if (a.y < 0 || a.y > box.height) a.vy *= -1;
-				}
-				for (let j = i + 1; j < nodes.length; j++) {
-					const b = nodes[j];
-					const d = Math.hypot(a.x - b.x, a.y - b.y);
-					if (d < 112) {
-						ctx.strokeStyle = `rgba(18,19,17,${.18 * (1 - d / 112)})`;
-						ctx.lineWidth = .8;
-						ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-					}
-				}
-				ctx.fillStyle = a.size > 2 ? '#d97757' : '#121311';
-				ctx.strokeStyle = '#121311';
-				ctx.lineWidth = 1;
-				ctx.beginPath(); ctx.arc(a.x, a.y, a.size, 0, Math.PI * 2); ctx.fill();
-				if (a.size > 2) ctx.stroke();
-			}
-			frame = requestAnimationFrame(draw);
-		};
-
-		resize(); draw();
-		addEventListener('resize', resize, { passive: true });
-		document.addEventListener('astro:before-swap', () => cancelAnimationFrame(frame), { once: true });
-	}
-</script>
-
 <style>
-	.growth { position: relative; width: 100%; height: 100%; min-height: 30rem; overflow: hidden; border: 1px solid var(--line); background: radial-gradient(circle at 55% 48%, var(--white), var(--paper-soft) 78%); }
-	canvas { position: absolute; inset: 0; }
-	.mark { position: absolute; right: 5%; bottom: 5%; font-size: clamp(7rem, 14vw, 13rem); line-height: .7; letter-spacing: -.13em; font-weight: 550; color: rgba(18,19,17,.045); pointer-events: none; }
-	.mark span { color: color-mix(in srgb, var(--acid) 45%, transparent); }
-	@media (max-width: 800px) {
-		.growth { min-height: 21rem; }
-	}
+	.growth { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+	.field-label, .field-caption { display: flex; align-items: center; font: .58rem/1.5 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+	.field-label { gap: .5rem; padding-left: 1.5rem; }
+	.live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--acid); }
+	.field { width: 100%; height: auto; overflow: visible; }
+	.guide { stroke: var(--line); stroke-width: .7; }
+	.orbit { stroke: var(--acid); stroke-width: .7; opacity: .55; }
+	.ticks { stroke: var(--muted); stroke-width: .8; }
+	.sphere { transform-origin: 280px 270px; animation: breathe 16s ease-in-out infinite; }
+	.field-caption { justify-content: space-between; padding: 0 1.5rem; }
+	@keyframes breathe { 50% { transform: rotate(7deg) scale(.98); } }
 </style>

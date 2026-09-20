@@ -44,6 +44,7 @@ const news = defineCollection({
 	schema: z.object({
 		id: z.string(),
 		date: z.coerce.date(),
+		datePrecision: z.enum(['day', 'month']).default('day'),
 		title: z.string(),
 		description: z.string(),
 		link: z.string().optional(),

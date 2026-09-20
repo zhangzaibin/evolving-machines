@@ -1,7 +1,6 @@
 <section class="framework" aria-labelledby="framework-title">
 	<header class="framework-head">
-		<p>One question, two worlds</p>
-		<h2 id="framework-title">How to <em>evolve?</em></h2>
+		<div><p class="eyebrow">One question, two worlds</p><h2 id="framework-title">How do machines <em>evolve?</em></h2></div>
 		<span>We build agents that turn new tasks, feedback, and tools into capabilities they did not have before.</span>
 	</header>
 
@@ -56,7 +55,7 @@
 			<ul>
 				<li><strong>Think3D-RL</strong><span>RL teaches agents to use 3D tools</span></li>
 				<li><strong>Real-world Arm DAgger</strong><span>Human corrections · Coming soon</span></li>
-				<li><strong>OASIS Interaction Reward <b>◉‿◉</b></strong><span>Learn to interact and gain influence · Coming soon</span></li>
+				<li><strong>OASIS Interaction Reward</strong><span>Learn to interact and gain influence · Coming soon</span></li>
 			</ul>
 		</article>
 
@@ -65,12 +64,36 @@
 				<span>03</span>
 				<div><small>Expand what is possible</small><h3>Open-ended<br />Tool Ecosystem</h3></div>
 			</div>
-			<p>Connect multimodal agents to an extensible ecology of tools for perception, reasoning, creation, and action.</p>
+			<p>Build an open-ended multimodal tool ecosystem, connecting perception, reasoning, creation, and action through a growing network of tools.</p>
 			<div class="mini-flow tools" aria-hidden="true">
-				<i></i><i></i><i></i><i></i><i></i><i></i><strong>26</strong>
+				<svg viewBox="0 0 300 88" fill="none">
+					<g class="tool-connections">
+						<path d="M137 37L90 21M137 51L90 67M163 37L210 21M163 51L210 67" />
+						<path class="tool-extension" d="M66 21L27 44L66 67M234 21L273 44L234 67" />
+					</g>
+					<g class="tool-node">
+						<rect x="66" y="9" width="24" height="24" rx="5" />
+						<path d="M71 27V15h14v12H71Zm0-2 4-4 3 3 3-4 4 5" /><circle cx="81" cy="18" r="1" />
+					</g>
+					<g class="tool-node">
+						<rect x="66" y="55" width="24" height="24" rx="5" />
+						<path d="M72 65v4m3-8v12m3-15v18m3-14v10m3-6v2" />
+					</g>
+					<g class="tool-node">
+						<rect x="210" y="9" width="24" height="24" rx="5" />
+						<path d="m222 13 7 4v8l-7 4-7-4v-8l7-4Zm-7 4 7 4 7-4m-7 4v8" />
+					</g>
+					<g class="tool-node">
+						<rect x="210" y="55" width="24" height="24" rx="5" />
+						<path d="M215 62h14m-7 0v12m-4 0h8" />
+					</g>
+					<g class="tool-agent"><circle cx="150" cy="44" r="15" /><text x="150" y="47">Agent</text></g>
+					<g class="tool-new tool-new-left"><circle cx="22" cy="44" r="7" /><path d="M19 44h6m-3-3v6" /></g>
+					<g class="tool-new tool-new-right"><circle cx="278" cy="44" r="7" /><path d="M275 44h6m-3-3v6" /></g>
+				</svg>
 			</div>
 			<ul>
-				<li><strong>SPAgent</strong><span>26 multimodal tools and growing</span></li>
+				<li><strong>SPAgent</strong><span>Toward an open-ended multimodal tool ecosystem</span></li>
 				<li><strong>SPAgent-RSI</strong><span>Coming soon</span></li>
 			</ul>
 		</article>
@@ -80,64 +103,71 @@
 </section>
 
 <style>
-	.framework { border: 1px solid var(--line-strong); background: var(--white); overflow: hidden; }
-	.framework-head { display: grid; grid-template-columns: .7fr 1.3fr 1fr; gap: 3rem; align-items: end; padding: clamp(2rem, 4vw, 4rem); border-bottom: 1px solid var(--line); }
+	.framework { overflow: hidden; }
+	.framework-head { display: grid; grid-template-columns: 1.4fr .8fr; gap: 3rem; align-items: end; padding-bottom: 3rem; }
 	.framework-head p, .framework-head > span { margin: 0; color: var(--muted); }
-	.framework-head p { align-self: start; font: .6rem var(--mono); letter-spacing: .08em; text-transform: uppercase; }
-	.framework-head h2 { margin: 0; font-size: clamp(3rem, 6.6vw, 6.7rem); line-height: .82; letter-spacing: -.065em; font-weight: 450; }
-	.framework-head h2 em { display: block; font-family: var(--serif); font-weight: 400; color: var(--acid-deep); }
+	.framework-head p { margin-bottom: 1rem; }
+	.framework-head h2 { margin: 0; max-width: 35rem; font-size: clamp(2.1rem, 3.5vw, 3.25rem); line-height: 1.12; letter-spacing: -.045em; font-weight: 450; }
+	.framework-head h2 em { font-weight: 400; color: var(--acid-deep); }
 	.framework-head > span { max-width: 25rem; font-size: .9rem; }
-	.world-loop { display: grid; grid-template-columns: 1fr 1.1fr 1fr; align-items: center; min-height: 18rem; padding: 2.5rem clamp(2rem, 4vw, 4rem); background: color-mix(in srgb, var(--paper) 74%, var(--white)); border-bottom: 1px solid var(--line); }
+	.world-loop { display: grid; grid-template-columns: 1fr 1.1fr 1fr; align-items: center; gap: 2rem; min-height: 14rem; padding: 2rem clamp(1.5rem, 3vw, 3rem); background: var(--paper); border: 1px solid var(--line); border-radius: 4px; }
 	.world { max-width: 18rem; }
-	.world > span { color: var(--acid-deep); font: .57rem var(--mono); text-transform: uppercase; }
-	.world strong { display: block; margin: .65rem 0; font-size: clamp(1.25rem, 2vw, 1.8rem); line-height: 1.05; letter-spacing: -.04em; font-weight: 550; }
-	.world small { color: var(--muted); font-size: .75rem; }
+	.world > span { color: var(--acid-deep); font: .65rem var(--mono); text-transform: uppercase; }
+	.world strong { display: block; margin: .65rem 0; font-size: clamp(1.25rem, 2vw, 1.8rem); line-height: 1.2; letter-spacing: -.03em; font-weight: 500; }
+	.world small { color: var(--muted); font-size: .85rem; }
 	.world-right { justify-self: end; text-align: right; }
 	.loop-graphic { text-align: center; }
 	.loop-graphic svg { display: block; width: 100%; overflow: visible; }
 	.loop-graphic .track { fill: none; stroke: var(--line-strong); stroke-width: 1.3; stroke-dasharray: .035 .025; animation: stream 8s linear infinite; }
-	.loop-graphic .pulse { fill: var(--acid); animation: pulse 2.4s ease-in-out infinite; }
+	.loop-graphic .pulse { fill: var(--acid); transform-box: fill-box; transform-origin: center; animation: pulse 2.4s ease-in-out infinite; }
 	.loop-graphic .pulse-b { animation-delay: -1.2s; }
 	.loop-graphic .core { fill: var(--white); stroke: var(--ink); }
 	.loop-graphic .core-arrow { fill: none; stroke: var(--ink); stroke-width: 1.5; }
 	.loop-graphic span { font: .54rem var(--mono); color: var(--muted); letter-spacing: .07em; text-transform: uppercase; }
-	.pillars { display: grid; grid-template-columns: repeat(3, 1fr); }
-	.pillar { min-width: 0; padding: clamp(1.5rem, 2.8vw, 2.8rem); border-right: 1px solid var(--line); }
-	.pillar:last-child { border-right: 0; }
-	.pillar.featured { background: color-mix(in srgb, var(--acid) 7%, var(--white)); }
-	.pillar-title { display: grid; grid-template-columns: 2rem 1fr; gap: .8rem; min-height: 8rem; }
+	.pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+	.pillar { min-width: 0; padding: clamp(1.25rem, 2vw, 2rem); background: var(--paper); border: 1px solid var(--line); border-radius: 4px; }
+	.pillar.featured { background: #f4e9e2; border-color: #dfc9bc; }
+	.pillar-title { display: grid; grid-template-columns: 1.2rem minmax(0, 1fr); gap: .7rem; min-height: 6.5rem; }
 	.pillar-title > span { color: var(--acid-deep); font: .6rem var(--mono); }
-	.pillar-title small { color: var(--muted); font: .55rem var(--mono); text-transform: uppercase; }
-	.pillar h3 { margin: .6rem 0 0; font-size: clamp(1.65rem, 2.6vw, 2.65rem); line-height: .94; letter-spacing: -.05em; font-weight: 500; }
-	.pillar > p { min-height: 5.2rem; margin: 1.5rem 0; color: var(--muted); font-size: .82rem; }
+	.pillar-title small { color: var(--muted); font: .6rem/1.5 var(--mono); text-transform: uppercase; }
+	.pillar h3 { margin: .6rem 0 0; font-size: clamp(1.35rem, 2vw, 1.9rem); line-height: 1.15; letter-spacing: -.035em; font-weight: 500; }
+	.pillar > p { min-height: 5.5rem; margin: 1.25rem 0; color: var(--muted); font-size: .82rem; }
 	.mini-flow { height: 5.5rem; display: flex; align-items: center; justify-content: center; gap: .45rem; margin-bottom: 1.5rem; border-block: 1px solid var(--line); }
-	.mini-flow i, .mini-flow strong { display: grid; place-items: center; width: 2rem; height: 2rem; border: 1px solid var(--line-strong); border-radius: 50%; background: var(--white); font: normal .55rem var(--mono); }
+	.mini-flow i, .mini-flow strong { display: grid; place-items: center; min-width: 2rem; width: auto; padding-inline: .4rem; height: 2rem; border: 1px solid var(--line-strong); border-radius: 3px; background: var(--white); font: normal .6rem var(--mono); }
 	.mini-flow span { width: 1.2rem; height: 1px; background: var(--line-strong); position: relative; overflow: hidden; }
 	.mini-flow span::after { content: ""; position: absolute; width: 40%; height: 100%; background: var(--acid-deep); animation: travel 1.8s linear infinite; }
 	.compose b { font: 400 .7rem var(--mono); }
 	.compose strong { width: auto; padding: 0 .65rem; border-radius: 2rem; color: var(--acid-deep); }
-	.tools i { width: .8rem; height: .8rem; border-radius: 0; animation: tool-wave 2.4s ease-in-out infinite; }
-	.tools i:nth-child(2) { animation-delay: -.2s; }.tools i:nth-child(3) { animation-delay: -.4s; }.tools i:nth-child(4) { animation-delay: -.6s; }.tools i:nth-child(5) { animation-delay: -.8s; }.tools i:nth-child(6) { animation-delay: -1s; }
-	.tools strong { margin-left: .5rem; background: var(--acid); }
+	.tools svg { display: block; width: 100%; max-width: 300px; height: 100%; }
+	.tool-connections { stroke: var(--acid); stroke-width: .8; stroke-dasharray: 2 4; animation: tool-connect 12s linear infinite; }
+	.tool-extension { opacity: .5; }
+	.tool-node rect { fill: var(--paper); stroke: var(--line-strong); }
+	.tool-node path, .tool-node > circle { stroke: var(--muted); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; }
+	.tool-agent circle { fill: #f4e9e2; stroke: var(--acid); stroke-width: .8; }
+	.tool-agent text { fill: var(--acid-deep); font: 8px var(--sans); text-anchor: middle; }
+	.tool-new { opacity: .7; animation: tool-emerge 7s ease-in-out infinite; }
+	.tool-new-right { animation-delay: -3.5s; }
+	.tool-new circle { fill: var(--paper); stroke: var(--acid); stroke-width: .8; }
+	.tool-new path { stroke: var(--acid-deep); stroke-width: .8; stroke-linecap: round; }
 	.pillar ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
 	.pillar li { padding: 1rem 0; border-bottom: 1px solid var(--line); }
 	.pillar li strong, .pillar li span { display: block; }
 	.pillar li strong { font-size: .78rem; font-weight: 650; }
-	.pillar li strong b { color: var(--acid-deep); font-family: var(--mono); }
-	.pillar li span { margin-top: .22rem; color: var(--muted); font-size: .67rem; }
-	.framework-foot { display: flex; align-items: center; justify-content: center; gap: clamp(.8rem, 3vw, 3rem); padding: 1.1rem; border-top: 1px solid var(--line); font: .57rem var(--mono); letter-spacing: .09em; text-transform: uppercase; }
+	.pillar li span { margin-top: .22rem; color: var(--muted); font-size: .75rem; }
+	.framework-foot { display: flex; align-items: center; justify-content: center; gap: clamp(.8rem, 3vw, 3rem); margin-top: 2rem; padding: 1.1rem; font: .65rem var(--mono); letter-spacing: .09em; text-transform: uppercase; }
 	.framework-foot i { color: var(--acid-deep); font-style: normal; }
 	@keyframes stream { to { stroke-dashoffset: -1; } }
 	@keyframes pulse { 50% { transform: scale(1.8); transform-origin: center; opacity: .35; } }
 	@keyframes travel { from { transform: translateX(-120%); } to { transform: translateX(350%); } }
-	@keyframes tool-wave { 50% { transform: translateY(-.65rem); background: var(--acid); } }
+	@keyframes tool-connect { to { stroke-dashoffset: -48; } }
+	@keyframes tool-emerge { 0%, 100% { opacity: .35; } 40%, 70% { opacity: 1; } }
 	@media (max-width: 900px) {
 		.framework-head { grid-template-columns: 1fr; gap: 1.5rem; }
 		.world-loop { grid-template-columns: 1fr; gap: 1rem; }
 		.world-right { justify-self: start; text-align: left; }
-		.loop-graphic { order: 3; }
+		.loop-graphic { order: 0; width: min(100%, 320px); justify-self: center; }
 		.pillars { grid-template-columns: 1fr; }
-		.pillar { border-right: 0; border-bottom: 1px solid var(--line); }
+		.pillar { border: 1px solid var(--line); }
 		.pillar-title, .pillar > p { min-height: 0; }
 		.pillar > p { margin-bottom: 2rem; }
 	}

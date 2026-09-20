@@ -16,8 +16,8 @@ const news = (await getCollection('news')).sort((a, b) => b.data.date.valueOf() 
 			<div class="list">
 				{news.map((item) => (
 					<article class="list-row">
-						<time class="meta" datetime={item.data.date.toISOString()}>
-							{item.data.date.toLocaleDateString('en', { day: '2-digit', month: 'short', year: 'numeric' })}
+						<time class="meta" datetime={item.data.datePrecision === 'month' ? item.data.date.toISOString().slice(0, 7) : item.data.date.toISOString()}>
+							{item.data.date.toLocaleDateString('en', { day: item.data.datePrecision === 'month' ? undefined : '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' })}
 						</time>
 						<div><h2>{item.data.title}</h2><p>{item.data.description}</p></div>
 						<div class="meta">{item.data.link ? <a href={item.data.link}>Read more <span class="arrow">↗</span></a> : 'Lab note'}</div>
@@ -29,5 +29,5 @@ const news = (await getCollection('news')).sort((a, b) => b.data.date.valueOf() 
 </BaseLayout>
 
 <style>
-	.page-hero em { font-family: var(--serif); font-weight: 400; }
+	.page-hero em { font-weight: 400; }
 </style>

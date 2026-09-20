@@ -24,6 +24,7 @@ const path = Astro.url.pathname;
 			{links.map(([label, href]) => (
 				<a href={to(href)} aria-current={path.startsWith(to(href)) ? 'page' : undefined}>{label}</a>
 			))}
+			<a class="nav-contact" href="mailto:dlutzzb@gmail.com">Get in touch <span class="arrow">↗</span></a>
 		</nav>
 	</div>
 </header>
@@ -31,28 +32,46 @@ const path = Astro.url.pathname;
 <script>
 	const menu = document.querySelector<HTMLButtonElement>('.menu');
 	const nav = document.querySelector<HTMLElement>('#navigation');
+	const closeMenu = () => {
+		menu?.setAttribute('aria-expanded', 'false');
+		nav?.removeAttribute('data-open');
+	};
 	menu?.addEventListener('click', () => {
 		const open = menu.getAttribute('aria-expanded') === 'true';
 		menu.setAttribute('aria-expanded', String(!open));
 		nav?.toggleAttribute('data-open', !open);
 	});
+	nav?.addEventListener('click', (event) => {
+		if ((event.target as HTMLElement).closest('a')) closeMenu();
+	});
+	document.addEventListener('keydown', (event) => {
+		if (event.key === 'Escape' && menu?.getAttribute('aria-expanded') === 'true') {
+			closeMenu();
+			menu.focus();
+		}
+	});
+	matchMedia('(min-width: 761px)').addEventListener('change', closeMenu);
 </script>
 
 <style>
-	.site-header { position: sticky; top: 0; z-index: 50; height: 72px; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter: blur(18px); }
+	.site-header { position: sticky; top: 0; z-index: 50; height: 84px; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 94%, transparent); backdrop-filter: blur(18px); }
 	.nav-wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; }
-	.brand { display: flex; align-items: center; gap: .72rem; font-size: .76rem; font-weight: 650; line-height: .95; letter-spacing: -.025em; }
-	.brand svg { width: 28px; height: 28px; overflow: visible; }
+	.brand { display: flex; align-items: center; gap: .8rem; font-size: .86rem; font-weight: 550; line-height: 1.15; letter-spacing: -.025em; }
+	.brand svg { width: 32px; height: 32px; overflow: visible; }
 	.brand path { fill: none; stroke: var(--ink); stroke-width: 1.4; }
 	.brand circle { fill: var(--acid); stroke: var(--ink); stroke-width: 1.3; }
 	nav { display: flex; align-items: center; gap: clamp(1.2rem, 2.3vw, 2.5rem); }
-	nav a { position: relative; font: .65rem var(--mono); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); transition: color .2s ease; }
+	nav a { position: relative; display: inline-flex; align-items: center; min-height: 44px; font-size: .84rem; color: var(--muted); transition: color .2s ease; }
 	nav a:hover, nav a[aria-current="page"] { color: var(--ink); }
-	nav a[aria-current="page"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -.45rem; height: 1px; background: var(--ink); }
-	.menu { display: none; border: 0; background: none; font: .7rem var(--mono); text-transform: uppercase; }
+	nav a[aria-current="page"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: 3px; height: 1px; background: var(--acid); }
+	nav .nav-contact { margin-left: 1.25rem; padding-left: 1.75rem; border-left: 1px solid var(--line); gap: 1.25rem; color: var(--ink); }
+	.menu { display: none; min-width: 44px; min-height: 44px; padding: .5rem; border: 1px solid var(--line); border-radius: 3px; background: none; font-size: .8rem; cursor: pointer; }
 	@media (max-width: 760px) {
+		.site-header { height: 72px; }
 		.menu { display: block; }
 		nav { display: none; position: absolute; inset: 72px 0 auto; padding: 2rem var(--pad); background: var(--paper); border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start; }
 		nav[data-open] { display: flex; }
+		nav a { width: 100%; font-size: 1rem; }
+		nav .nav-contact { margin-left: 0; padding: 1rem 0 0; border-left: 0; border-top: 1px solid var(--line); }
 	}
 </style>
