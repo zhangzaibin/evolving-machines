@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
 const areas = [
 	{
@@ -30,6 +30,20 @@ const methods = [
 		<h1 class="display">Intelligence is<br />a <em>process.</em></h1>
 		<p class="lede">Digital and physical worlds are the environments. Evolution is the method: interaction creates experience, reinforcement turns feedback into learning, and composition carries learning into new situations.</p>
 	</header>
+
+	<section class="section research-updates" aria-labelledby="research-updates-title">
+		<div class="shell">
+			<p class="eyebrow" id="research-updates-title">Research blog</p>
+			<a class="research-post" href={`${base}research/oasis-social-reward/`}>
+				<div class="post-meta"><span>OASIS / Social Reward</span><time datetime="2026-09">September 2026</time></div>
+				<div class="post-body">
+					<h2>Can LLM agents<br />learn from society?</h2>
+					<p>Exploring social interaction as a source of reward. Early experiments on learning from other agents, transfer beyond the simulator, and the limits of social feedback.</p>
+					<span class="post-link">Read the research update <span class="arrow" aria-hidden="true">↗</span></span>
+				</div>
+			</a>
+		</div>
+	</section>
 
 	<section class="section methodology">
 		<div class="shell">
@@ -78,6 +92,13 @@ const methods = [
 
 <style>
 	.page-hero em { font-weight: 400; }
+	.research-post { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(2rem, 5vw, 6rem); padding: clamp(1.5rem, 4vw, 3.5rem); border: 1px solid var(--line-strong); background: var(--white); }
+	.research-post:hover { border-color: var(--acid-deep); }
+	.post-meta { display: flex; flex-direction: column; gap: 1rem; color: var(--muted); font: .68rem/1.6 var(--mono); text-transform: uppercase; letter-spacing: .04em; }
+	.post-meta span { color: var(--acid-deep); }
+	.post-body h2 { margin: 0; font-size: clamp(2rem, 3.5vw, 3.5rem); line-height: 1.12; letter-spacing: -.05em; font-weight: 450; }
+	.post-body p { max-width: 40rem; margin: 1.5rem 0; color: var(--muted); }
+	.post-link { display: inline-flex; align-items: center; gap: 1.5rem; min-height: 44px; color: var(--acid-deep); font-size: .85rem; }
 	.methodology { background: var(--paper-soft); }
 	.method-head { display: grid; grid-template-columns: 1.35fr .65fr; gap: clamp(3rem, 8vw, 8rem); align-items: end; margin-bottom: clamp(3rem, 6vw, 5rem); }
 	.method-head h2 { margin: 0; font-size: clamp(2.25rem, 3.7vw, 3.5rem); line-height: 1.12; letter-spacing: -.055em; font-weight: 450; }
@@ -99,6 +120,7 @@ const methods = [
 	.principle p:last-child { max-width: 1050px; margin: 0; font-size: clamp(2.5rem, 4.5vw, 4.5rem); line-height: 1.12; letter-spacing: -.055em; }
 	.principle em { font-weight: 400; color: var(--acid-deep); }
 	@media (max-width: 800px) {
+		.research-post { grid-template-columns: 1fr; }
 		.method-head { grid-template-columns: 1fr; }
 		.method-grid { grid-template-columns: 1fr 1fr; }
 		.area-grid { grid-template-columns: 1fr; }

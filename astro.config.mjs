@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://zhangzaibin.github.io',
-	base: '/evolving-machines',
+	base: '/evolving-machines/',
 	integrations: [sitemap()],
 	prefetch: true,
 });

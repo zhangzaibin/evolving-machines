@@ -31,6 +31,8 @@ Research content is kept separate from page components:
 
 Every record needs a unique `id`. Collection schemas live in `src/content.config.ts`; update a schema before introducing a new field.
 
+The OASIS Social Reward research blog lives in `OASIS_Social_Reward_Blog.html`, including its figures, references, and BibTeX citation. The Astro route `src/pages/research/oasis-social-reward.astro` imports that file directly and adds site metadata; edit the original HTML to update the published article. Its entry is in `src/pages/research.astro`.
+
 ## Design system
 
 Global tokens, typography, spacing, grids, and common list/card patterns live in `src/styles/global.css`. The main palette is warm paper, near-black ink, and one sunset-coral signal color. Motion must remain low-frequency and respect `prefers-reduced-motion`.

@@ -1,0 +1,40 @@
+---
+import article from '../../../OASIS_Social_Reward_Blog.html?raw';
+
+// Keep the authored HTML as the single source for the article and its figures.
+// Its standalone styles intentionally do not inherit the site's global CSS.
+const head = article.match(/<head>([\s\S]*?)<\/head>/)?.[1];
+const body = article.match(/<body[^>]*>([\s\S]*?)<\/body>/)?.[1];
+if (!head || !body) throw new Error('OASIS blog must contain a head and body.');
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const canonical = new URL(`${base}research/oasis-social-reward/`, Astro.site);
+const content = body
+	.replaceAll('https://zhangzaibin.github.io/evolving-machines/research/oasis-social-reward/', canonical.href)
+	.replaceAll('href="https://zhangzaibin.github.io/evolving-machines/research/"', `href="${base}research/"`);
+const schema = {
+	'@context': 'https://schema.org',
+	'@type': 'BlogPosting',
+	headline: 'Can LLM agents learn from society?',
+	description: 'Early experiments with OASIS Social Reward: using multi-agent interaction as a source of reward, and studying what agents learn from society.',
+	url: canonical.href,
+	mainEntityOfPage: canonical.href,
+	inLanguage: 'en',
+	author: { '@type': 'Organization', name: 'OASIS Project', url: 'https://github.com/camel-ai/oasis' },
+	publisher: { '@type': 'ResearchOrganization', name: 'Evolving Machines Lab', url: new URL(base, Astro.site).href },
+};
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<Fragment set:html={head} />
+		<link rel="canonical" href={canonical} />
+		<link rel="sitemap" type="application/xml" href={`${base}sitemap-index.xml`} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:site_name" content="Evolving Machines Lab" />
+		<meta name="twitter:card" content="summary" />
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
+	</head>
+	<body id="top"><Fragment set:html={content} /></body>
+</html>
