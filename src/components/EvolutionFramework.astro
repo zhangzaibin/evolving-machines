@@ -1,3 +1,7 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
 <section class="framework" aria-labelledby="framework-title">
 	<header class="framework-head">
 		<div><p class="eyebrow">One question, two worlds</p><h2 id="framework-title">How do machines <em>evolve?</em></h2></div>
@@ -55,7 +59,7 @@
 			<ul>
 				<li><strong>Think3D-RL</strong><span>RL teaches agents to use 3D tools</span></li>
 				<li><strong>Real-world Arm DAgger</strong><span>Human corrections · Coming soon</span></li>
-				<li><strong>OASIS Interaction Reward</strong><span>Learn to interact and gain influence · Coming soon</span></li>
+				<li><a href={`${base}research/oasis-social-reward/`}><strong>OASIS Interaction Reward</strong><span>Learn to interact and gain influence · Read blog →</span></a></li>
 			</ul>
 		</article>
 
