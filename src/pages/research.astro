@@ -1,6 +1,8 @@
 ---
+import { useLocale } from '../i18n';
 import BaseLayout from '../layouts/BaseLayout.astro';
-const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+
+const { t, base, isZh } = useLocale(Astro.url);
 
 const areas = [
 	{
@@ -24,22 +26,22 @@ const methods = [
 ];
 ---
 
-<BaseLayout title="Research" description="Evolving Machines Lab studies intelligence across the digital world and physical world.">
+<BaseLayout title={t("Research")} description={t("Evolving Machines Lab studies intelligence across the digital world and physical world.")}>
 	<header class="page-hero shell">
-		<p class="eyebrow">Research</p>
-		<h1 class="display">Intelligence is<br />a <em>process.</em></h1>
-		<p class="lede">Digital and physical worlds are the environments. Evolution is the method: interaction creates experience, reinforcement turns feedback into learning, and composition carries learning into new situations.</p>
+		<p class="eyebrow">{t("Research")}</p>
+		<h1 class="display">{t("Intelligence is")}<br />{t("a")} <em>{t("process.")}</em></h1>
+		<p class="lede">{t("Digital and physical worlds are the environments. Evolution is the method: interaction creates experience, reinforcement turns feedback into learning, and composition carries learning into new situations.")}</p>
 	</header>
 
 	<section class="section research-updates" aria-labelledby="research-updates-title">
 		<div class="shell">
-			<p class="eyebrow" id="research-updates-title">Research blog</p>
+			<p class="eyebrow" id="research-updates-title">{t("Research blog")}</p>
 			<a class="research-post" href={`${base}research/oasis-social-reward/`}>
-				<div class="post-meta"><span>OASIS / Social Reward</span><time datetime="2026-09">September 2026</time></div>
+				<div class="post-meta"><span>{t("OASIS / Social Reward")}</span><time datetime="2026-09">{t("September 2026")}</time></div>
 				<div class="post-body">
-					<h2>Can LLM agents<br />learn from society?</h2>
-					<p>Exploring social interaction as a source of reward. Early experiments on learning from other agents, transfer beyond the simulator, and the limits of social feedback.</p>
-					<span class="post-link">Read the research update <span class="arrow" aria-hidden="true">↗</span></span>
+					<h2>{t("Can LLM agents")}<br />{t("learn from society?")}</h2>
+					<p>{t("Exploring social interaction as a source of reward. Early experiments on learning from other agents, transfer beyond the simulator, and the limits of social feedback.")}</p>
+					<span class="post-link">{t("Read the research update")} <span class="arrow" aria-hidden="true">↗</span></span>
 				</div>
 			</a>
 		</div>
@@ -48,15 +50,15 @@ const methods = [
 	<section class="section methodology">
 		<div class="shell">
 			<div class="method-head">
-				<div><p class="eyebrow">How machines evolve</p><h2>One learning loop,<br /><em>across both worlds.</em></h2></div>
-				<p>Our projects differ in scale and embodiment, but share a common mechanism: intelligence must keep changing through its consequences rather than remain fixed after training.</p>
+				<div><p class="eyebrow">{t("How machines evolve")}</p><h2>{t("One learning loop,")}<br /><em>{t("across both worlds.")}</em></h2></div>
+				<p>{t("Our projects differ in scale and embodiment, but share a common mechanism: intelligence must keep changing through its consequences rather than remain fixed after training.")}</p>
 			</div>
 			<div class="method-grid">
 				{methods.map(([index, name, description]) => (
 					<article>
 						<span>{index}</span>
-						<h3>{name}</h3>
-						<p>{description}</p>
+						<h3>{t(name)}</h3>
+						<p>{t(description)}</p>
 					</article>
 				))}
 			</div>
@@ -67,14 +69,14 @@ const methods = [
 		{areas.map((area) => (
 			<section class="area section">
 				<div class="shell area-grid">
-					<div class="area-index"><span>{area.n}</span><span>{area.lens}</span></div>
+					<div class="area-index"><span>{area.n}</span><span>{t(area.lens)}</span></div>
 					<div class="area-main">
-						<p class="eyebrow">{area.name}</p>
-						<h2>{area.question}</h2>
-						<p>{area.approach}</p>
+						<p class="eyebrow">{t(area.name)}</p>
+						<h2>{t(area.question)}</h2>
+						<p>{t(area.approach)}</p>
 					</div>
 					<div class="systems">
-						<span class="mono">Systems / Papers</span>
+						<span class="mono">{t("Systems / Papers")}</span>
 						{area.systems.map((system) => <a href={`${base}projects#${system.id}`}>{system.name} <span class="arrow">↗</span></a>)}
 					</div>
 				</div>
@@ -84,8 +86,8 @@ const methods = [
 
 	<section class="section principle">
 		<div class="shell">
-			<p class="eyebrow">A unifying principle</p>
-			<p>Evolution is the loop between <em>agent</em>, <em>experience</em>, and <em>world</em>.</p>
+			<p class="eyebrow">{t("A unifying principle")}</p>
+			<p>{isZh ? <>进化，源于<em>智能体</em>、<em>经验</em>与<em>世界</em>之间的持续互动。</> : <>Evolution is the loop between <em>agent</em>, <em>experience</em>, and <em>world</em>.</>}</p>
 		</div>
 	</section>
 </BaseLayout>

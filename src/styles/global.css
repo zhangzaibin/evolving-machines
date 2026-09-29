@@ -14,6 +14,18 @@
 	--mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }
 
+/* Local fonts keep Chinese text readable without an external font request. */
+html:lang(zh-CN) {
+	--sans: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", "Helvetica Neue", sans-serif;
+	--mono: "SFMono-Regular", Consolas, "PingFang SC", "Microsoft YaHei", monospace;
+	line-break: strict;
+}
+html:lang(zh-CN) body { line-height: 1.8; }
+html:lang(zh-CN) :is(h1, h2, h3, .display, .callout, .lede, .hero-line) { letter-spacing: 0; line-height: 1.35; }
+html:lang(zh-CN) :is(.eyebrow, .meta, .visual-label, .field-label, .field-caption) { letter-spacing: .035em; }
+html:lang(zh-CN) .original-title { font-size: .8rem; line-height: 1.5; }
+html:lang(zh-CN) .hero h1 { letter-spacing: -.055em; line-height: 1.07; }
+
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 100px; background: var(--paper); color: var(--ink); }
 body { margin: 0; min-width: 320px; font-family: var(--sans); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }

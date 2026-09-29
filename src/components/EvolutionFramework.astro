@@ -1,18 +1,20 @@
 ---
-const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+import { useLocale } from '../i18n';
+
+const { t, base } = useLocale(Astro.url);
 ---
 
 <section class="framework" aria-labelledby="framework-title">
 	<header class="framework-head">
-		<div><p class="eyebrow">One question, two worlds</p><h2 id="framework-title">How do machines <em>evolve?</em></h2></div>
-		<span>We build agents that turn new tasks, feedback, and tools into capabilities they did not have before.</span>
+		<div><p class="eyebrow">{t("One question, two worlds")}</p><h2 id="framework-title">{t("How do machines")} <em>{t("evolve?")}</em></h2></div>
+		<span>{t("We build agents that turn new tasks, feedback, and tools into capabilities they did not have before.")}</span>
 	</header>
 
-	<div class="world-loop" aria-label="Digital and physical agents share one evolution loop">
+	<div class="world-loop" aria-label={t("Digital and physical agents share one evolution loop")}>
 		<div class="world">
-			<span>01 / Simulation</span>
-			<strong>Digital world agents</strong>
-			<small>Interact at scale, shape societies, and learn from influence.</small>
+			<span>{t("01 / Simulation")}</span>
+			<strong>{t("Digital world agents")}</strong>
+			<small>{t("Interact at scale, shape societies, and learn from influence.")}</small>
 		</div>
 		<div class="loop-graphic" aria-hidden="true">
 			<svg viewBox="0 0 380 126">
@@ -22,12 +24,12 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 				<circle class="core" cx="190" cy="63" r="25" />
 				<path class="core-arrow" d="M180 63h19m-7-7 7 7-7 7" />
 			</svg>
-			<span>Experience → policy → capability</span>
+			<span>{t("Experience → policy → capability")}</span>
 		</div>
 		<div class="world world-right">
-			<span>02 / Reality</span>
-			<strong>Physical world agents</strong>
-			<small>Perceive space, compose skills, and improve through correction.</small>
+			<span>{t("02 / Reality")}</span>
+			<strong>{t("Physical world agents")}</strong>
+			<small>{t("Perceive space, compose skills, and improve through correction.")}</small>
 		</div>
 	</div>
 
@@ -35,40 +37,40 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 		<article class="pillar">
 			<div class="pillar-title">
 				<span>01</span>
-				<div><small>Reuse what is known</small><h3>Compositional<br />Generalization</h3></div>
+				<div><small>{t("Reuse what is known")}</small><h3>{t("Compositional")}<br />{t("Generalization")}</h3></div>
 			</div>
-			<p>Recombine learned skills to solve tasks never seen during training—to learn by analogy, not memorization.</p>
+			<p>{t("Recombine learned skills to solve tasks never seen during training—to learn by analogy, not memorization.")}</p>
 			<div class="mini-flow compose" aria-hidden="true">
-				<i>A</i><i>B</i><b>+</b><i>C</i><span></span><strong>New task</strong>
+				<i>A</i><i>B</i><b>+</b><i>C</i><span></span><strong>{t("New task")}</strong>
 			</div>
 			<ul>
-				<li><strong>MA-VLA</strong><span>Atomic skills for multi-arm collaboration</span></li>
-				<li><strong>MACG</strong><span>Coming soon</span></li>
+				<li><strong>MA-VLA</strong><span>{t("Atomic skills for multi-arm collaboration")}</span></li>
+				<li><strong>MACG</strong><span>{t("Coming soon")}</span></li>
 			</ul>
 		</article>
 
 		<article class="pillar featured">
 			<div class="pillar-title">
 				<span>02</span>
-				<div><small>Learn from action</small><h3>On-policy<br />Learning</h3></div>
+				<div><small>{t("Learn from action")}</small><h3>{t("On-policy")}<br />{t("Learning")}</h3></div>
 			</div>
-			<p>Let agents act, receive feedback, and update from experience collected by their own evolving policy.</p>
+			<p>{t("Let agents act, receive feedback, and update from experience collected by their own evolving policy.")}</p>
 			<div class="mini-flow policy" aria-hidden="true">
-				<i>Act</i><span></span><i>Feedback</i><span></span><i>Adapt</i>
+				<i>{t("Act")}</i><span></span><i>{t("Feedback")}</i><span></span><i>{t("Adapt")}</i>
 			</div>
 			<ul>
-				<li><strong>Think3D-RL</strong><span>RL teaches agents to use 3D tools</span></li>
-				<li><strong>Real-world Arm DAgger</strong><span>Human corrections · Coming soon</span></li>
-				<li><a href={`${base}research/oasis-social-reward/`}><strong>OASIS Interaction Reward</strong><span>Learn to interact and gain influence · Read blog →</span></a></li>
+				<li><strong>Think3D-RL</strong><span>{t("RL teaches agents to use 3D tools")}</span></li>
+				<li><strong>{t("Real-world Arm DAgger")}</strong><span>{t("Human corrections · Coming soon")}</span></li>
+				<li><a href={`${base}research/oasis-social-reward/`}><strong>{t("OASIS Interaction Reward")}</strong><span>{t("Learn to interact and gain influence · Read blog →")}</span></a></li>
 			</ul>
 		</article>
 
 		<article class="pillar">
 			<div class="pillar-title">
 				<span>03</span>
-				<div><small>Expand what is possible</small><h3>Open-ended<br />Tool Ecosystem</h3></div>
+				<div><small>{t("Expand what is possible")}</small><h3>{t("Open-ended")}<br />{t("Tool Ecosystem")}</h3></div>
 			</div>
-			<p>Build an open-ended multimodal tool ecosystem, connecting perception, reasoning, creation, and action through a growing network of tools.</p>
+			<p>{t("Build an open-ended multimodal tool ecosystem, connecting perception, reasoning, creation, and action through a growing network of tools.")}</p>
 			<div class="mini-flow tools" aria-hidden="true">
 				<svg viewBox="0 0 300 88" fill="none">
 					<g class="tool-connections">
@@ -91,19 +93,19 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 						<rect x="210" y="55" width="24" height="24" rx="5" />
 						<path d="M215 62h14m-7 0v12m-4 0h8" />
 					</g>
-					<g class="tool-agent"><circle cx="150" cy="44" r="15" /><text x="150" y="47">Agent</text></g>
+					<g class="tool-agent"><circle cx="150" cy="44" r="15" /><text x="150" y="47">{t("Agent")}</text></g>
 					<g class="tool-new tool-new-left"><circle cx="22" cy="44" r="7" /><path d="M19 44h6m-3-3v6" /></g>
 					<g class="tool-new tool-new-right"><circle cx="278" cy="44" r="7" /><path d="M275 44h6m-3-3v6" /></g>
 				</svg>
 			</div>
 			<ul>
-				<li><strong>SPAgent</strong><span>Toward an open-ended multimodal tool ecosystem</span></li>
-				<li><strong>SPAgent-RSI</strong><span>Coming soon</span></li>
+				<li><strong>SPAgent</strong><span>{t("Toward an open-ended multimodal tool ecosystem")}</span></li>
+				<li><strong>SPAgent-RSI</strong><span>{t("Coming soon")}</span></li>
 			</ul>
 		</article>
 	</div>
 
-	<footer class="framework-foot"><span>Observe</span><i>→</i><span>Act</span><i>→</i><span>Learn</span><i>→</i><span>Evolve</span></footer>
+	<footer class="framework-foot"><span>{t("Observe")}</span><i>→</i><span>{t("Act")}</span><i>→</i><span>{t("Learn")}</span><i>→</i><span>{t("Evolve")}</span></footer>
 </section>
 
 <style>

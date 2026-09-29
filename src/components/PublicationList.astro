@@ -1,4 +1,7 @@
 ---
+import { useLocale } from '../i18n';
+
+const { t, isZh } = useLocale(Astro.url);
 interface Publication {
 	id: string;
 	data: {
@@ -13,24 +16,25 @@ const themes = [...new Set(publications.map((p) => p.data.theme))];
 ---
 
 {interactive && (
-	<div class="filters" aria-label="Filter publications">
-		<button class="filter" data-filter="all" aria-pressed="true">All</button>
-		{themes.map((theme) => <button class="filter" data-filter={theme} aria-pressed="false">{theme}</button>)}
+	<div class="filters" aria-label={t("Filter publications")}>
+		<button class="filter" data-filter="all" aria-pressed="true">{t("All")}</button>
+		{themes.map((theme) => <button class="filter" data-filter={theme} aria-pressed="false">{t(theme)}</button>)}
 	</div>
 )}
 <div class="list publication-list">
 	{shown.map((pub) => (
 		<article class="list-row" data-theme={pub.data.theme}>
-			<div class="meta">{pub.data.year}<br />{pub.data.theme}</div>
+			<div class="meta">{pub.data.year}<br />{t(pub.data.theme)}</div>
 			<div>
-				<h2>{pub.data.title}</h2>
+				<h2>{t(pub.data.title)}</h2>
+				{isZh && <p class="original-title" lang="en">{pub.data.title}</p>}
 				<p>{pub.data.authors}</p>
-				{pub.data.badge && <span class="tag">{pub.data.badge}</span>}
+				{pub.data.badge && <span class="tag">{t(pub.data.badge)}</span>}
 			</div>
 			<div class="meta">
-				{pub.data.venue}
+				{t(pub.data.venue)}
 				<div class="pub-links">
-					{Object.entries(pub.data.links).map(([label, url]) => <a href={url} target="_blank">{label} <span class="arrow">↗</span></a>)}
+					{Object.entries(pub.data.links).map(([label, url]) => <a href={url} target="_blank">{t(label)} <span class="arrow">↗</span></a>)}
 				</div>
 			</div>
 		</article>

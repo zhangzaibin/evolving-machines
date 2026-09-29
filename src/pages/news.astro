@@ -1,14 +1,17 @@
 ---
+import { useLocale } from '../i18n';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const { t, language } = useLocale(Astro.url);
 const news = (await getCollection('news')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<BaseLayout title="News" description="Releases, publications, talks, and updates from Evolving Machines Lab.">
+<BaseLayout title={t("News")} description={t("Releases, publications, talks, and updates from Evolving Machines Lab.")}>
 	<header class="page-hero shell">
-		<p class="eyebrow">News / Field notes</p>
-		<h1 class="display">Signals from<br />an evolving <em>lab.</em></h1>
-		<p class="lede">New systems, research milestones, conversations, and moments that move the work forward.</p>
+		<p class="eyebrow">{t("News / Field notes")}</p>
+		<h1 class="display">{t("Signals from")}<br />{t("an evolving")} <em>{t("lab.")}</em></h1>
+		<p class="lede">{t("New systems, research milestones, conversations, and moments that move the work forward.")}</p>
 	</header>
 
 	<section class="section">
@@ -17,10 +20,10 @@ const news = (await getCollection('news')).sort((a, b) => b.data.date.valueOf() 
 				{news.map((item) => (
 					<article class="list-row">
 						<time class="meta" datetime={item.data.datePrecision === 'month' ? item.data.date.toISOString().slice(0, 7) : item.data.date.toISOString()}>
-							{item.data.date.toLocaleDateString('en', { day: item.data.datePrecision === 'month' ? undefined : '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' })}
+							{item.data.date.toLocaleDateString(language, { day: item.data.datePrecision === 'month' ? undefined : '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' })}
 						</time>
-						<div><h2>{item.data.title}</h2><p>{item.data.description}</p></div>
-						<div class="meta">{item.data.link ? <a href={item.data.link}>Read more <span class="arrow">↗</span></a> : 'Lab note'}</div>
+						<div><h2>{t(item.data.title)}</h2><p>{t(item.data.description)}</p></div>
+						<div class="meta">{item.data.link ? <a href={item.data.link}>{t("Read more")} <span class="arrow">↗</span></a> : t('Lab note')}</div>
 					</article>
 				))}
 			</div>

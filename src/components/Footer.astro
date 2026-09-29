@@ -1,16 +1,21 @@
+---
+import { useLocale } from '../i18n';
+
+const { t } = useLocale(Astro.url);
+---
 <footer>
 	<div class="shell footer-main">
-		<p class="callout">Build what<br /><em>evolves.</em></p>
+		<p class="callout">{t("Build what")}<br /><em>{t("evolves.")}</em></p>
 		<div class="contact">
-			<p class="eyebrow">Collaborate</p>
-			<p>We welcome researchers and builders working on open, reliable, and continually evolving intelligence.</p>
+			<p class="eyebrow">{t("Collaborate")}</p>
+			<p>{t("We welcome researchers and builders working on open, reliable, and continually evolving intelligence.")}</p>
 			<a href="mailto:dlutzzb@gmail.com">dlutzzb@gmail.com <span class="arrow">↗</span></a>
 		</div>
 	</div>
 	<div class="shell footer-meta">
 		<span>© {new Date().getFullYear()} Evolving Machines Lab</span>
 		<span>DLUT · Oxford · KAUST · UC San Diego</span>
-		<div><a href="https://github.com/zhangzaibin">GitHub</a> · <a href="https://zhangzaibin.github.io/">Founder</a></div>
+		<div><a href="https://github.com/zhangzaibin">GitHub</a> · <a href="https://zhangzaibin.github.io/">{t("Founder")}</a></div>
 	</div>
 </footer>
 

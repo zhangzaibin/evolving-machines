@@ -1,4 +1,7 @@
 ---
+import { useLocale } from '../i18n';
+
+const { t } = useLocale(Astro.url);
 // A deterministic point field, rendered without a canvas loop or client runtime.
 const points = Array.from({ length: 1800 }, (_, i) => {
 	const y = 1 - (i / 1799) * 2;
@@ -17,7 +20,7 @@ const points = Array.from({ length: 1800 }, (_, i) => {
 ---
 
 <div class="growth" aria-hidden="true">
-	<div class="field-label"><span class="live-dot"></span> An open-ended evolution</div>
+	<div class="field-label"><span class="live-dot"></span> {t("An open-ended evolution")}</div>
 	<svg class="field" viewBox="0 0 560 540" fill="none">
 		<path class="guide" d="M280 22V518M30 270H530" stroke-dasharray="2 7" />
 		<circle class="guide" cx="280" cy="270" r="222" stroke-dasharray="2 7" />
@@ -27,7 +30,7 @@ const points = Array.from({ length: 1800 }, (_, i) => {
 		<circle cx="65" cy="389" r="3" fill="var(--ink)" />
 		<path class="ticks" d="M280 43v10M280 487v10M53 270h10M497 270h10" />
 	</svg>
-	<div class="field-caption"><span>Interaction → adaptation</span><span>EML / 001</span></div>
+	<div class="field-caption"><span>{t("Interaction → adaptation")}</span><span>EML / 001</span></div>
 </div>
 
 <style>

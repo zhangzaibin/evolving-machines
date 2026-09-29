@@ -1,0 +1,32 @@
+---
+import { useLocale } from '../i18n';
+
+const { locale, alternate } = useLocale(Astro.url);
+---
+
+<div class="language-switch" role="group" aria-label={locale === 'zh' ? '选择语言' : 'Choose language'}>
+	<a href={alternate('en')} lang="en" hreflang="en" aria-current={locale === 'en' ? 'true' : undefined}>EN</a>
+	<span aria-hidden="true">/</span>
+	<a href={alternate('zh')} lang="zh-CN" hreflang="zh-CN" aria-current={locale === 'zh' ? 'true' : undefined}>中文</a>
+</div>
+
+<script>
+	// Preserve an in-page location when switching between matching translations.
+	document.querySelectorAll<HTMLAnchorElement>('.language-switch a').forEach((link) => {
+		link.addEventListener('click', () => {
+			const target = new URL(link.href);
+			target.hash = window.location.hash;
+			target.search = window.location.search;
+			link.href = target.href;
+		});
+	});
+</script>
+
+<style>
+	.language-switch { display: inline-flex; align-items: center; gap: .35rem; flex-shrink: 0; white-space: nowrap; font: 500 .75rem/1.5 Arial, "PingFang SC", "Microsoft YaHei", sans-serif; }
+	.language-switch a { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; min-height: 44px; color: #686b65; text-decoration: none; }
+	.language-switch a:hover, .language-switch a[aria-current] { color: #242623; }
+	.language-switch a[aria-current] { text-decoration: underline; text-underline-offset: .4rem; text-decoration-color: #ce7256; }
+	.language-switch span { color: #aaa99f; }
+	.language-switch a:focus-visible { outline: 2px solid #a34c34; outline-offset: 2px; }
+</style>

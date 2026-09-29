@@ -1,31 +1,37 @@
 ---
+import { useLocale } from '../i18n';
+import LanguageSwitch from './LanguageSwitch.astro';
+
+const { t, base } = useLocale(Astro.url);
 const links = [
 	['Research', '/research'],
 	['Projects', '/projects'],
 	['Publications', '/publications'],
 	['News', '/news'],
 ];
-const base = import.meta.env.BASE_URL;
 const to = (href: string) => `${base}${href.replace(/^\//, '')}`;
 const path = Astro.url.pathname;
 ---
 
 <header class="site-header">
 	<div class="shell nav-wrap">
-		<a class="brand" href={base} aria-label="Evolving Machines Lab home">
+		<a class="brand" href={base} aria-label={t("Evolving Machines Lab home")}>
 			<svg viewBox="0 0 32 32" role="img" aria-hidden="true">
 				<path d="M5 25V8l11 9L27 6v19" />
 				<circle cx="5" cy="8" r="2.5" /><circle cx="16" cy="17" r="2.5" /><circle cx="27" cy="6" r="2.5" /><circle cx="27" cy="25" r="2.5" />
 			</svg>
 			<span>Evolving<br />Machines Lab</span>
 		</a>
-		<button class="menu" aria-expanded="false" aria-controls="navigation">Menu</button>
-		<nav id="navigation" aria-label="Main navigation">
+		<nav id="navigation" aria-label={t("Main navigation")}>
 			{links.map(([label, href]) => (
-				<a href={to(href)} aria-current={path.startsWith(to(href)) ? 'page' : undefined}>{label}</a>
+				<a href={to(href)} aria-current={path.startsWith(to(href)) ? 'page' : undefined}>{t(label)}</a>
 			))}
-			<a class="nav-contact" href="mailto:dlutzzb@gmail.com">Get in touch <span class="arrow">↗</span></a>
+			<a class="nav-contact" href="mailto:dlutzzb@gmail.com">{t("Get in touch")} <span class="arrow">↗</span></a>
 		</nav>
+		<div class="nav-tools">
+			<LanguageSwitch />
+			<button class="menu" aria-expanded="false" aria-controls="navigation">{t("Menu")}</button>
+		</div>
 	</div>
 </header>
 
@@ -55,12 +61,13 @@ const path = Astro.url.pathname;
 
 <style>
 	.site-header { position: sticky; top: 0; z-index: 50; height: 84px; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 94%, transparent); backdrop-filter: blur(18px); }
-	.nav-wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+	.nav-wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+	.nav-tools { display: flex; align-items: center; gap: .75rem; }
 	.brand { display: flex; align-items: center; gap: .8rem; font-size: .86rem; font-weight: 550; line-height: 1.15; letter-spacing: -.025em; }
 	.brand svg { width: 32px; height: 32px; overflow: visible; }
 	.brand path { fill: none; stroke: var(--ink); stroke-width: 1.4; }
 	.brand circle { fill: var(--acid); stroke: var(--ink); stroke-width: 1.3; }
-	nav { display: flex; align-items: center; gap: clamp(1.2rem, 2.3vw, 2.5rem); }
+	nav { display: flex; align-items: center; gap: clamp(1rem, 2vw, 2rem); margin-left: auto; }
 	nav a { position: relative; display: inline-flex; align-items: center; min-height: 44px; font-size: .84rem; color: var(--muted); transition: color .2s ease; }
 	nav a:hover, nav a[aria-current="page"] { color: var(--ink); }
 	nav a[aria-current="page"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: 3px; height: 1px; background: var(--acid); }
@@ -68,6 +75,8 @@ const path = Astro.url.pathname;
 	.menu { display: none; min-width: 44px; min-height: 44px; padding: .5rem; border: 1px solid var(--line); border-radius: 3px; background: none; font-size: .8rem; cursor: pointer; }
 	@media (max-width: 760px) {
 		.site-header { height: 72px; }
+		.nav-wrap { gap: .5rem; }
+		.nav-tools { gap: .3rem; }
 		.menu { display: block; }
 		nav { display: none; position: absolute; inset: 72px 0 auto; padding: 2rem var(--pad); background: var(--paper); border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start; }
 		nav[data-open] { display: flex; }

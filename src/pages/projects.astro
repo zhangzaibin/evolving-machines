@@ -1,18 +1,21 @@
 ---
+import { useLocale } from '../i18n';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectFeature from '../components/ProjectFeature.astro';
+
+const { t } = useLocale(Astro.url);
 
 const projectOrder = ['oasis', 'spagent', 'future'];
 const allProjects = await getCollection('projects');
 const projects = projectOrder.map((id) => allProjects.find((project) => project.id === id)!).filter(Boolean);
 ---
 
-<BaseLayout title="Projects" description="OASIS, SPAgent, and Future—three open-source projects spanning the digital and physical worlds.">
+<BaseLayout title={t("Projects")} description={t("OASIS, SPAgent, and Future—three open-source projects spanning the digital and physical worlds.")}>
 	<header class="page-hero shell">
-		<p class="eyebrow">Three open projects</p>
-		<h1 class="display">One lab.<br /><em>Two worlds.</em></h1>
-		<p class="lede">OASIS provides a digital environment for evolving agent societies. SPAgent and Future move the same learning loop into spatial reasoning and physical action through tools, policies, benchmarks, and hardware.</p>
+		<p class="eyebrow">{t("Three open projects")}</p>
+		<h1 class="display">{t("One lab.")}<br /><em>{t("Two worlds.")}</em></h1>
+		<p class="lede">{t("OASIS provides a digital environment for evolving agent societies. SPAgent and Future move the same learning loop into spatial reasoning and physical action through tools, policies, benchmarks, and hardware.")}</p>
 	</header>
 
 	<section class="section">
@@ -28,10 +31,10 @@ const projects = projectOrder.map((id) => allProjects.find((project) => project.
 
 	<section class="section open-call">
 		<div class="shell grid-2">
-			<h2>Open by<br />default.</h2>
+			<h2>{t("Open by")}<br />{t("default.")}</h2>
 			<div>
-				<p>We believe important agent infrastructure should be inspectable, extensible, and useful beyond a single paper. Our projects connect research artifacts to real communities of researchers and builders.</p>
-				<a href="https://github.com/zhangzaibin">Explore our GitHub <span class="arrow">↗</span></a>
+				<p>{t("We believe important agent infrastructure should be inspectable, extensible, and useful beyond a single paper. Our projects connect research artifacts to real communities of researchers and builders.")}</p>
+				<a href="https://github.com/zhangzaibin">{t("Explore our GitHub")} <span class="arrow">↗</span></a>
 			</div>
 		</div>
 	</section>

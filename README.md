@@ -10,7 +10,7 @@ Requires Node.js 22.12 or newer.
 
 ```bash
 npm install
-npm run dev
+npm run dev -- --background
 ```
 
 Production checks:
@@ -32,6 +32,14 @@ Research content is kept separate from page components:
 Every record needs a unique `id`. Collection schemas live in `src/content.config.ts`; update a schema before introducing a new field.
 
 The OASIS Social Reward research blog lives in `OASIS_Social_Reward_Blog.html`, including its figures, references, and BibTeX citation. The Astro route `src/pages/research/oasis-social-reward.astro` imports that file directly and adds site metadata; edit the original HTML to update the published article. Its entry is in `src/pages/research.astro`.
+
+## Languages
+
+English pages keep their original URLs. Simplified Chinese pages are under `/evolving-machines/zh/`, including the research blog. The header switches to the same page in the other language and retains the current section.
+
+Both languages share the same page components and research data. Chinese copy lives in `src/i18n/zh.json`, keyed by the original English text. When editing English copy, update the matching translation key. `src/i18n/index.ts` resolves language-aware links and translates article text at build time while retaining its original figures, values, scripts, and BibTeX. Publication titles show Chinese translations alongside the original English titles. New pages need a matching route under `src/pages/zh/`.
+
+Chinese typography uses local system fonts. The generated HTML includes localized metadata, language attributes, and alternate-language links; rendering the Chinese version does not depend on client-side translation or a third-party translation service.
 
 ## Design system
 

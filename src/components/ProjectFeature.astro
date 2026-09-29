@@ -1,4 +1,7 @@
 ---
+import { useLocale } from '../i18n';
+
+const { t } = useLocale(Astro.url);
 interface Props {
 	project: {
 		name: string;
@@ -23,7 +26,7 @@ const variant = (index - 1) % 3;
 
 <article class:list={['feature', { compact }]} data-variant={variant}>
 	<div class="visual">
-		<div class="visual-label">{String(index).padStart(2, '0')} / {project.kicker}</div>
+		<div class="visual-label">{String(index).padStart(2, '0')} / {t(project.kicker)}</div>
 		<svg class="diagram" viewBox="0 0 700 480" aria-hidden="true">
 			<defs>
 				<pattern id={`grid-${index}`} width="40" height="40" patternUnits="userSpaceOnUse">
@@ -76,26 +79,26 @@ const variant = (index - 1) % 3;
 		<span class="diagram-code">EML / SYSTEM {String(index).padStart(2, '0')}</span>
 	</div>
 	<div class="body">
-		<p class="eyebrow">{project.kicker}</p>
+		<p class="eyebrow">{t(project.kicker)}</p>
 		<h3>{project.name}</h3>
-		<p class="tagline">{project.tagline}</p>
-		<p class="description">{project.description}</p>
+		<p class="tagline">{t(project.tagline)}</p>
+		<p class="description">{t(project.description)}</p>
 		{project.modules && !compact && (
-			<div class="modules-list" aria-label={`${project.name} initiatives`}>
+			<div class="modules-list" aria-label={`${project.name} ${t('Projects')}`}>
 				{project.modules.map((module) => (
 					<div class="module">
 						<div>
 							<strong>{module.name}</strong>
-							<p>{module.description}</p>
+							<p>{t(module.description)}</p>
 						</div>
-						<span class:list={['status', { soon: module.status === 'Coming Soon' }]}>{module.status}</span>
+						<span class:list={['status', { soon: module.status === 'Coming Soon' }]}>{t(module.status)}</span>
 					</div>
 				))}
 			</div>
 		)}
-		<ul>{project.metrics.map((item) => <li>{item}</li>)}</ul>
+		<ul>{project.metrics.map((item) => <li>{t(item)}</li>)}</ul>
 		<div class="links">
-			{Object.entries(project.links).map(([label, url]) => <a href={url} target="_blank">{label} <span class="arrow">↗</span></a>)}
+			{Object.entries(project.links).map(([label, url]) => <a href={url} target="_blank">{t(label)} <span class="arrow">↗</span></a>)}
 		</div>
 	</div>
 </article>

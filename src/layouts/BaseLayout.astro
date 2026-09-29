@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { useLocale } from '../i18n';
 
 interface Props {
 	title?: string;
@@ -9,7 +10,8 @@ interface Props {
 }
 
 const siteName = 'Evolving Machines Lab';
-const siteDescription = 'Evolving Machines Lab researches AI agents that learn and evolve across digital and physical worlds through interaction, reinforcement learning, and experience.';
+const { t, language, isZh, alternate } = useLocale(Astro.url);
+const siteDescription = t('Evolving Machines Lab researches AI agents that learn and evolve across digital and physical worlds through interaction, reinforcement learning, and experience.');
 const { title = siteName, description = siteDescription } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const siteUrl = new URL(base.replace(/\/?$/, '/'), Astro.site).href;
@@ -35,7 +37,7 @@ const schema = {
 			name: siteName,
 			url: siteUrl,
 			description: siteDescription,
-			inLanguage: 'en',
+			inLanguage: ['en', 'zh-CN'],
 			publisher: { '@id': organizationId },
 		},
 		{
@@ -44,7 +46,7 @@ const schema = {
 			name: fullTitle,
 			url: canonical.href,
 			description,
-			inLanguage: 'en',
+			inLanguage: language,
 			isPartOf: { '@id': websiteId },
 			about: { '@id': organizationId },
 		},
@@ -53,7 +55,7 @@ const schema = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={language}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -62,16 +64,21 @@ const schema = {
 		<meta name="application-name" content={siteName} />
 		<meta name="robots" content="index, follow, max-image-preview:large" />
 		<link rel="canonical" href={canonical} />
+		<link rel="alternate" hreflang="en" href={new URL(alternate('en'), Astro.site)} />
+		<link rel="alternate" hreflang="zh-CN" href={new URL(alternate('zh'), Astro.site)} />
+		<link rel="alternate" hreflang="x-default" href={new URL(alternate('en'), Astro.site)} />
 		<link rel="sitemap" type="application/xml" href={`${base}sitemap-index.xml`} />
 		<link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
 		<meta name="theme-color" content="#f8f7f4" />
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content={siteName} />
+		<meta property="og:locale" content={isZh ? 'zh_CN' : 'en_US'} />
+		<meta property="og:locale:alternate" content={isZh ? 'en_US' : 'zh_CN'} />
 		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonical} />
 		<meta property="og:image" content={new URL(`${base}og.svg`, Astro.site)} />
-		<meta property="og:image:alt" content={`${siteName} — building intelligence that grows through interaction`} />
+		<meta property="og:image:alt" content={isZh ? `${siteName} — 让智能在交互中持续成长` : `${siteName} — building intelligence that grows through interaction`} />
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={fullTitle} />
 		<meta name="twitter:description" content={description} />
@@ -79,7 +86,7 @@ const schema = {
 		<script is:inline type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
 	</head>
 	<body>
-		<a class="skip" href="#content">Skip to content</a>
+		<a class="skip" href="#content">{t('Skip to content')}</a>
 		<Header />
 		<main id="content" class="page"><slot /></main>
 		<Footer />

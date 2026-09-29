@@ -1,40 +1,66 @@
 ---
 import article from '../../../OASIS_Social_Reward_Blog.html?raw';
+import { useLocale, localizeArticle } from '../../i18n';
+import LanguageSwitch from '../../components/LanguageSwitch.astro';
+
+const { t, base, language, isZh, alternate } = useLocale(Astro.url);
+const localizedArticle = isZh ? localizeArticle(article) : article;
 
 // Keep the authored HTML as the single source for the article and its figures.
 // Its standalone styles intentionally do not inherit the site's global CSS.
-const head = article.match(/<head>([\s\S]*?)<\/head>/)?.[1];
-const body = article.match(/<body[^>]*>([\s\S]*?)<\/body>/)?.[1];
+const head = localizedArticle.match(/<head>([\s\S]*?)<\/head>/)?.[1];
+const body = localizedArticle.match(/<body[^>]*>([\s\S]*?)<\/body>/)?.[1];
 if (!head || !body) throw new Error('OASIS blog must contain a head and body.');
 
-const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const canonical = new URL(`${base}research/oasis-social-reward/`, Astro.site);
 const content = body
 	.replaceAll('https://zhangzaibin.github.io/evolving-machines/research/oasis-social-reward/', canonical.href)
 	.replaceAll('href="https://zhangzaibin.github.io/evolving-machines/research/"', `href="${base}research/"`);
+// Insert the shared language control into the standalone article navigation.
+const navigationEnd = content.indexOf('</nav>');
+if (navigationEnd < 0) throw new Error('OASIS blog must contain navigation.');
+const beforeSwitch = content.slice(0, navigationEnd);
+const afterSwitch = content.slice(navigationEnd);
 const schema = {
 	'@context': 'https://schema.org',
 	'@type': 'BlogPosting',
-	headline: 'Can LLM agents learn from society?',
-	description: 'Early experiments with OASIS Social Reward: using multi-agent interaction as a source of reward, and studying what agents learn from society.',
+	headline: t('Can LLM agents learn from society?'),
+	description: t('Early experiments with OASIS Social Reward: using multi-agent interaction as a source of reward, and studying what agents learn from society.'),
 	url: canonical.href,
 	mainEntityOfPage: canonical.href,
-	inLanguage: 'en',
+	inLanguage: language,
 	author: { '@type': 'Organization', name: 'OASIS Project', url: 'https://github.com/camel-ai/oasis' },
 	publisher: { '@type': 'ResearchOrganization', name: 'Evolving Machines Lab', url: new URL(base, Astro.site).href },
 };
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={language}>
 	<head>
 		<Fragment set:html={head} />
 		<link rel="canonical" href={canonical} />
-		<link rel="sitemap" type="application/xml" href={`${base}sitemap-index.xml`} />
+		<link rel="alternate" hreflang="en" href={new URL(alternate('en'), Astro.site)} />
+		<link rel="alternate" hreflang="zh-CN" href={new URL(alternate('zh'), Astro.site)} />
+		<link rel="alternate" hreflang="x-default" href={new URL(alternate('en'), Astro.site)} />
+		<link rel="sitemap" type="application/xml" href={`${import.meta.env.BASE_URL}sitemap-index.xml`} />
 		<meta property="og:url" content={canonical} />
 		<meta property="og:site_name" content="Evolving Machines Lab" />
+		<meta property="og:locale" content={isZh ? 'zh_CN' : 'en_US'} />
 		<meta name="twitter:card" content="summary" />
 		<script is:inline type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
 	</head>
-	<body id="top"><Fragment set:html={content} /></body>
+	<body id="top"><Fragment set:html={beforeSwitch} /><LanguageSwitch /><Fragment set:html={afterSwitch} /></body>
 </html>
+
+<style is:global>
+	html:lang(zh-CN) body { font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif; line-height: 1.85; }
+	html:lang(zh-CN) :is(h1, h2, h3) { letter-spacing: 0; line-height: 1.35; }
+	html:lang(zh-CN) svg text { font-family: "PingFang SC", "Microsoft YaHei", Arial, sans-serif; }
+	.toplinks .language-switch a { display: inline-flex; }
+	@media (max-width: 600px) {
+		.topbar { gap: .5rem; padding-inline: 16px; }
+		.toplinks { gap: .75rem; }
+		.wordmark small, .wordmark > span { display: none; }
+		html:lang(zh-CN) h1 { font-size: clamp(28px, 7.5vw, 43px); }
+	}
+</style>
